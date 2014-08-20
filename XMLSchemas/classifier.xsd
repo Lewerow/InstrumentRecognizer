@@ -1,0 +1,119 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<xsd:schema xmlns:xsd = "http://www.w3.org/2001/XMLSchema">
+	
+	<xsd:simpleType name="interfaceVersion">
+		<xsd:restriction base="xsd:integer">
+			<xsd:minInclusive value="0" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:complexType name="basicHeader">
+		<xsd:sequence>
+			<xsd:element name="version" type="interfaceVersion" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:simpleType name="classifierType">
+		<xsd:restriction base="xsd:string" />
+	</xsd:simpleType>
+	
+	<xsd:simpleType name="classifierId">
+		<xsd:restriction base="xsd:string" />
+	</xsd:simpleType>
+	
+	<xsd:complexType name="generalData">
+		<xsd:sequence>
+			<xsd:element name="type" type="classifierType" />
+			<xsd:element name="id" type="classifierId" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:simpleType name="rmsError">
+		<xsd:restriction base="xsd:double">
+			<xsd:minInclusive value="0.0" />
+		</xsd:restriction>
+	</xsd:simpleType>
+		
+	<xsd:simpleType name="usedDescriptionCountInfo">
+		<xsd:restriction base="xsd:integer">
+			<xsd:minInclusive value="1" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:simpleType name="teachingIterationNumber">
+		<xsd:restriction base="xsd:integer">
+			<xsd:minInclusive value="1" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:simpleType name="teachingTimeValue">
+		<xsd:restriction base="xsd:double">
+			<xsd:minInclusive value="0" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="teachingTimeUnit">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="s" />
+			<xsd:enumeration value="sec" />
+			<xsd:enumeration value="second" />
+			<xsd:enumeration value="ms" />
+			<xsd:enumeration value="millisecond" />
+			<xsd:enumeration value="min" />
+			<xsd:enumeration value="minute" />
+			<xsd:enumeration value="h" />
+			<xsd:enumeration value="hour" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:complexType name="teachingTimeData">
+		<xsd:sequence>
+			<xsd:element name="value" type="teachingTimeValue" />
+			<xsd:element name="unit" type="teachingTimeUnit" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="statisticalData">
+		<xsd:sequence>
+			<xsd:element name="rms" type="rmsError" />
+			<xsd:element name="usedDescriptionCount" type="usedDescriptionCountInfo" />
+			<xsd:element name="teachingIteration" type="teachingIterationNumber" />
+			<xsd:element name="teachingTime" type="teachingTimeData" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:simpleType name="descriptorsType">
+		<xsd:restriction base="xsd:string" />
+	</xsd:simpleType>
+		
+	<xsd:simpleType name="descriptiorsCount">
+		<xsd:restriction base="xsd:integer">
+			<xsd:minInclusive value="0" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:complexType name="descriptionData">
+		<xsd:sequence>
+			<xsd:element name="decriptorCount" type="descriptorsCount" />
+			<xsd:element name="descriptors" type="descriptorsType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="classifierSpecificData">
+		<xsd:choice>
+		
+		</xsd:choice>
+	</xsd:complexType>
+	
+	<xsd:complexType name="classifierData">
+		<xsd:sequence>
+			<xsd:element name="header" type="basicHeader" />
+			<xsd:element name="general" type="generalData" />
+			<xsd:element name="statistics" type="statisticalData" />
+			<xsd:element name="descriptions" type="descriptionData" />
+			<xsd:element name="decisionData" type="classifierSpecificData" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:element name="classifier" type="classifierData" />
+</xsd:schema>

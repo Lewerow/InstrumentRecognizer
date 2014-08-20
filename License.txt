@@ -1,0 +1,8 @@
+This software is based on pugixml library (http://pugixml.org).
+pugixml is Copyright (C) 2006-2012 Arseny Kapoulkine.
+
+Unfortunately, this software uses heavily Shark Machine Learning Library, which is licensed under GNU GPL v3 license.
+Since GNU GPL v3 is viral, this software also has to use GNU GPL v3 (or any later)
+
+Entire lincense can be read at:
+http://www.gnu.org/licenses/gpl.html

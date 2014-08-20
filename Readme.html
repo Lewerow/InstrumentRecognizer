@@ -1,0 +1,96 @@
+<h1>Building</h1>
+
+<p>To build this project, you need to have CMake installed on your computer.
+If you do not have it, you can download it for free from http://www.cmake.org/
+If you already have it, simply invoke it from here or from any other directory you prefer.
+For example, you can write:</p>
+
+<pre><code>mkdir build
+cd build
+cmake -G "Visual Studio 11" ..
+</code></pre>
+
+<p>Then you can build it from Visual Studio using command
+    msbuild /m ALL_BUILD.vcxproj
+or from GUI.</p>
+
+<p>Of course, you can use any generator you wish that is supported by CMake.</p>
+
+<h1>Troubleshooting during building</h1>
+
+<p>It is highly possible, that CMake will encounter problems during the run. Most often it is due to invalid environment configuration.
+The following environment variables should be available:</p>
+
+<ul>
+<li>BOOST_ROOT (or BOOST_INCLUDEDIR and BOOST_LIBRARYDIR) - pointing to Boost library path</li>
+<li>TURTLE_ROOT - pointing to include directory in Turtle library directory (turtle is a header-only library, so it's kind of a root...)</li>
+<li><p>SHARK_INCLUDE and SHARK_LIBRARIES - pointing to Shark library includes and libs. Libs for release and debug should be located in one directory, however, release mode is not yet supported via CMake
+if they are not available, CMake will complain about it. You can solve it in two ways:</p>
+
+<ol>
+<li>Easy - install these libraries and add required environment variables</li>
+<li>Clean - run CMake with -Dxxx command line arguments. Example:
+cmake -G "Visual Studio 11" .. -DSHARK_INCLUDE=D:/Shark/include -DSHARK_LIBRARIES=D:/Shark/libs -TURTLE_ROOT=D:/turtle/include</li>
+</ol></li>
+</ul>
+
+<h1>Detailed build steps</h1>
+
+<h2>Windows</h2>
+
+<p>It is assumed you have the following tools in your environment:</p>
+
+<ol>
+<li>TortoiseSVN (available for free from http://tortoisesvn.net/)</li>
+<li>Visual Studio 2013 or higher (Express Edition is sufficient - available for free from http://www.visualstudio.com/en-us/products/visual-studio-express-vs.aspx - registration is required, but free of charge, even for commercial use)</li>
+<li>CMake 2.8.11 or higher</li>
+</ol>
+
+<p>If you already have Boost, Shark or Turtle installed, you may skip steps connected with it.</p>
+
+<ol>
+<li>Download Boost from http://www.boost.org/ . Unfortunately, version 1.55.0 cannot be compiled with Visual Studio straight away, so try using newer version if possible. You may also try 1.54.0, 
+since application doesn't use any new features, but it also is not guaranteed to work.
+1.1 If Boost 1.55.0 is still the latest version available, open file boost/archive/iterators/transform_width.hpp and add line 
+<code>#include &lt;algorithm&gt; </code>
+in the beginning</li>
+<li><p>Open Visual Studio Command Prompt and navigate to Boost root directory. Then type the following commands:</p>
+
+<pre><code>bootstrap
+b2 --layout=versioned
+</code></pre></li>
+<li><p>Wait until boost builds itself (in the meantime you can go to 5.)</p></li>
+<li>Add BOOST_ROOT to your environment variables and set it to Boost location (you may also add BOOST_LIB/BOOST_LIBRARYDIR, but it's optional)</li>
+<li>Download Turtle from http://turtle.sourceforge.net/</li>
+<li>Add TURTLE_ROOT to your environment variables and set it to Turtle include location</li>
+<li><p>Checkout Shark from https://svn.code.sf.net/p/shark-project/code/trunk/Shark. Use HEAD revision, or at least rev. 3028. You can do this by using TortoiseSVN GUI or by using command:</p>
+
+<pre><code>svn co https://svn.code.sf.net/p/shark-project/code/trunk/Shark
+</code></pre>
+
+<p>in destination directory</p></li>
+<li><p>Navigate to Shark root directory, then type the following commands:</p>
+
+<pre><code>mkdir build
+cd build
+cmake -G "Visual Studio 12" ..
+msbuild /m ALL_BUILD.vcxproj
+</code></pre></li>
+<li><p>Set SHARK_INCLUDE environment variable to shark header path (usually <shark_root>/include)</p></li>
+<li>Set SHARK_LIBRARIES environment variable to shark library path (it is recommended to use <shark_root>/lib, but you may use whichever you like)</li>
+<li>Go to application root</li>
+<li><p>Type the following commands:</p>
+
+<pre><code>mkdir build
+cd build
+cmake -G "Visual Studio 12" ..
+msbuild /m ALL_BUILD.vcxproj
+</code></pre></li>
+<li><p>If everything went well, you should be able to run the application. Congratulations!    </p></li>
+</ol>
+
+<h1>Executing</h1>
+
+<p>To execute application, run Recognizer.exe (on Windows). To check options use --help argument. 
+Since this is a command line tool, don't expect any windows, only bare output.
+Application can be controlled via command line arguments and via configuration file.</p>
