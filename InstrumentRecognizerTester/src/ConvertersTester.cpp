@@ -1,6 +1,7 @@
+#ifdef BUILD_WITH_SHARK
+
 #include <boost/test/auto_unit_test.hpp>
 #include <SharkConverters.h>
-
 struct ToRealVectorFixture
 {
 	static_assert(std::is_same<ObjectDescription, Converters::ObjectDescriptionToRealVector::InType>::value, "ObjectDescriptionToRealVector must have ObjectDescription as InType");
@@ -123,3 +124,5 @@ BOOST_AUTO_TEST_CASE(Conversion)
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
+
+#endif

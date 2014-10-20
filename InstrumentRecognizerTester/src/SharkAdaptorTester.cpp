@@ -1,3 +1,4 @@
+#ifdef BUILD_WITH_SHARK
 #include <boost/test/auto_unit_test.hpp>
 
 #include <SharkAdaptor.h>
@@ -19,3 +20,4 @@ BOOST_AUTO_TEST_CASE(IsCallable)
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
+#endif

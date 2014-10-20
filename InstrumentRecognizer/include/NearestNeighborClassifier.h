@@ -1,3 +1,4 @@
+#ifdef BUILD_WITH_SHARK
 #pragma once
 
 #include "Classifier.h"
@@ -81,3 +82,4 @@ private:
 	virtual void doRun();
 	virtual void doStop();
 };
+#endif

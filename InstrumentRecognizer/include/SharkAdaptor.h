@@ -1,3 +1,4 @@
+#ifdef BUILD_WITH_SHARK
 #pragma once
 
 #include <shark/Data/Dataset.h>
@@ -130,3 +131,4 @@ private:
 		return shark::createLabeledDataFromRange(values, keys);
 	}
 };
+#endif

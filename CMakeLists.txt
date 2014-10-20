@@ -15,38 +15,47 @@ SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/exe)
 SET(Boost_USE_STATIC_LIBS ON)
 FIND_PACKAGE(Boost 1.55.0 REQUIRED COMPONENTS filesystem unit_test_framework)
 
-IF(NOT DEFINED SHARK_INCLUDE)
+IF(NOT DEFINED BUILD_WITH_SHARK)
+    SET(BUILD_WITH_SHARK NO)
+	MESSAGE("-- Building without Shark library. Ignore messages about it")
+ENDIF()
+
+IF(BUILD_WITH_SHARK AND NOT DEFINED SHARK_INCLUDE)
     SET(SHARK_INCLUDE $ENV{SHARK_INCLUDE})
 ENDIF()
 
-IF(NOT DEFINED SHARK_INCLUDE)
+IF(BUILD_WITH_SHARK AND NOT DEFINED SHARK_INCLUDE)
   MESSAGE(FATAL_ERROR "Could not find SHARK_INCLUDE."
   "You need to set SHARK_INCLUDE environment variable to path where Shark Machine Learning Library headers are located."
   "Shark can be downloaded for free from http://image.diku.dk/shark/") 
 ENDIF()
 
-MESSAGE("Found Shark headers in: " ${SHARK_INCLUDE})
+MESSAGE("-- Found Shark headers in: " ${SHARK_INCLUDE})
 
-IF(NOT DEFINED SHARK_LIBRARIES)
+IF(BUILD_WITH_SHARK AND NOT DEFINED SHARK_LIBRARIES)
     SET(SHARK_LIBRARIES $ENV{SHARK_LIBRARIES})
 ENDIF()
 
-IF(NOT DEFINED SHARK_LIBRARIES)
+IF(BUILD_WITH_SHARK AND NOT DEFINED SHARK_LIBRARIES)
   MESSAGE(FATAL_ERROR "Could not find SHARK_LIBRARIES."
   "You need to set SHARK_LIBRARIES environment variable to path where Shark Machine Learning Library compiled binaries are located."
   "Shark can be downloaded for free from http://image.diku.dk/shark/") 
 ENDIF()
-MESSAGE("Found Shark libraries in: " ${SHARK_LIBRARIES})
+MESSAGE("-- Found Shark libraries in: " ${SHARK_LIBRARIES})
 
 IF(CMAKE_BUILD_TYPE MATCHES RELEASE)
-	MESSAGE(FATAL_ERROR "Trying to build in release mode. Release mode is not yet supported")
 	SET(SHARK_LIB shark)
+	MESSAGE("-- Building in relase mode")
 ELSE()
 	SET(SHARK_LIB shark_debug)
-	MESSAGE("Building in debug mode")
+	MESSAGE("-- Building in debug mode")
 ENDIF()
 
-MESSAGE("Shark library name: " ${SHARK_LIB})
+IF(NOT BUILD_WITH_SHARK)
+	SET(SHARK_LIB "")
+ENDIF()
+
+MESSAGE("-- Shark library name: " ${SHARK_LIB})
 
 ADD_SUBDIRECTORY( PugiXML)
 ADD_SUBDIRECTORY( InstrumentRecognizer )

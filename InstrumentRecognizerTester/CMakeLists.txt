@@ -25,7 +25,7 @@ IF(NOT DEFINED TURTLE_ROOT)
   "You need to set TURTLE_ROOT environment variable to path where Turtle Mock is installed. "
   "Turtle Mock can be downloaded for free from http://turtle.sourceforge.net/") 
 ENDIF()
-MESSAGE("Found Turtle Mock in: " ${TURTLE_ROOT})
+MESSAGE("-- Found Turtle Mock in: " ${TURTLE_ROOT})
 
 INCLUDE_DIRECTORIES(${TURTLE_ROOT})
 
