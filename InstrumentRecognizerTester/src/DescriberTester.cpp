@@ -32,8 +32,9 @@ BOOST_AUTO_TEST_CASE(MPEG7DescriberExistsAndRequiresStream)
 
 	for (std::size_t i = 0; i < expected.size(); i++)
 	{
-		BOOST_CHECK_CLOSE(description.at(i).real(), expected.at(i).real(), MAX_PERCENTAGE_DIFFERENCE);
-		BOOST_CHECK_CLOSE(description.at(i).imag(), expected.at(i).imag(), MAX_PERCENTAGE_DIFFERENCE);
+//		BOOST_CHECK_CLOSE(description.at(i).real(), expected.at(i).real(), MAX_PERCENTAGE_DIFFERENCE);
+//		BOOST_CHECK_CLOSE(description.at(i).imag(), expected.at(i).imag(), MAX_PERCENTAGE_DIFFERENCE);
+		BOOST_CHECK_CLOSE(description.at(i), expected.at(i), MAX_PERCENTAGE_DIFFERENCE);
 	}
 }
 
@@ -64,8 +65,9 @@ BOOST_AUTO_TEST_CASE(MPEG7DetailedDescriberExistsAndRequiresStream)
 	BOOST_REQUIRE_EQUAL(description.size(), expected.size());
 	for (std::size_t i = 0; i < expected.size(); i++)
 	{
-		BOOST_CHECK_CLOSE(description.at(i).real(), expected.at(i).real(), MAX_PERCENTAGE_DIFFERENCE);
-		BOOST_CHECK_CLOSE(description.at(i).imag(), expected.at(i).imag(), MAX_PERCENTAGE_DIFFERENCE);
+//		BOOST_CHECK_CLOSE(description.at(i).real(), expected.at(i).real(), MAX_PERCENTAGE_DIFFERENCE);
+//		BOOST_CHECK_CLOSE(description.at(i).imag(), expected.at(i).imag(), MAX_PERCENTAGE_DIFFERENCE);
+		BOOST_CHECK_CLOSE(description.at(i), expected.at(i), MAX_PERCENTAGE_DIFFERENCE);
 	}
 }
 
@@ -89,8 +91,9 @@ BOOST_AUTO_TEST_CASE(ViolinHandledCorrectly)
     
 	for(std::size_t i = 0; i < expected.size(); i++)
 	{
-		BOOST_CHECK_CLOSE(description.at(i).real(), expected.at(i).real(), MAX_PERCENTAGE_DIFFERENCE);
-		BOOST_CHECK_CLOSE(description.at(i).imag(), expected.at(i).imag(), MAX_PERCENTAGE_DIFFERENCE);
+//		BOOST_CHECK_CLOSE(description.at(i).real(), expected.at(i).real(), MAX_PERCENTAGE_DIFFERENCE);
+//		BOOST_CHECK_CLOSE(description.at(i).imag(), expected.at(i).imag(), MAX_PERCENTAGE_DIFFERENCE);
+		BOOST_CHECK_CLOSE(description.at(i), expected.at(i), MAX_PERCENTAGE_DIFFERENCE);
 	}
 }
 

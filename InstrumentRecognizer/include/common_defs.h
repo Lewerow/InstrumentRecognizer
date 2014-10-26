@@ -9,7 +9,8 @@
 #include <pugixml.hpp>
 
 typedef std::string ClassName;
-typedef std::complex<double> Descriptor;
+//typedef std::complex<double> Descriptor;
+typedef double Descriptor;
 typedef std::vector<Descriptor> ObjectDescription;
 typedef std::vector<ObjectDescription> ClassDescription;
 typedef std::unordered_map<ClassName, ClassDescription> ClassDescriptionBase;

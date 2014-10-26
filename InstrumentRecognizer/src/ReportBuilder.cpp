@@ -414,7 +414,8 @@ std::string TextReportBuilder::Printer::serializeObjectDescription(const ObjectD
 {
 	std::stringstream str;
 	for(auto& i: desc)
-		str << i.real() << " " << i.imag() << " ";
+//		str << i.real() << " " << i.imag() << " ";
+		str << i << " ";
 
 	return str.str();
 }

@@ -101,23 +101,35 @@ BOOST_AUTO_TEST_CASE(AddingAfterFinishedAsserts)
 BOOST_FIXTURE_TEST_CASE(DescriptorValuesArePreserved, StartedFileDescriptionDBManagerFixture)
 {
 	ObjectDescription class1Desc1(4);
-	class1Desc1[0] = Descriptor(3, 2);
-	class1Desc1[1] = Descriptor(-4, 1);
-	class1Desc1[2] = Descriptor(3, 0.5);
-	class1Desc1[3] = Descriptor(2, 2);
+//	class1Desc1[0] = Descriptor(3, 2);
+//	class1Desc1[1] = Descriptor(-4, 1);
+//	class1Desc1[2] = Descriptor(3, 0.5);
+//	class1Desc1[3] = Descriptor(2, 2);
+	class1Desc1[0] = Descriptor(3);
+	class1Desc1[1] = Descriptor(-4);
+	class1Desc1[2] = Descriptor(3);
+	class1Desc1[3] = Descriptor(2);
 
 	ObjectDescription class1Desc2(4);
-	class1Desc2[0] = Descriptor(4, 20);
-	class1Desc2[1] = Descriptor(14, 51);
-	class1Desc2[2] = Descriptor(3.55, 0.5);
-	class1Desc2[3] = Descriptor(2.1, 2);
+//	class1Desc2[0] = Descriptor(4, 20);
+//	class1Desc2[1] = Descriptor(14, 51);
+//	class1Desc2[2] = Descriptor(3.55, 0.5);
+//	class1Desc2[3] = Descriptor(2.1, 2);
+	class1Desc2[0] = Descriptor(20);
+	class1Desc2[1] = Descriptor(51);
+	class1Desc2[2] = Descriptor(0.5);
+	class1Desc2[3] = Descriptor(2);
 
 	ObjectDescription class2Desc(4);
-	class2Desc[0] = Descriptor(-1, 6);
-	class2Desc[1] = Descriptor(-11, 6.11);
-	class2Desc[2] = Descriptor(7, 999);
-	class2Desc[3] = Descriptor(-1, 1);
-	
+//	class2Desc[0] = Descriptor(-1, 6);
+//	class2Desc[1] = Descriptor(-11, 6.11);
+//	class2Desc[2] = Descriptor(7, 999);
+//	class2Desc[3] = Descriptor(-1, 1);
+	class2Desc[0] = Descriptor(6);
+	class2Desc[1] = Descriptor(6.11);
+	class2Desc[2] = Descriptor(999);
+	class2Desc[3] = Descriptor(1);
+
 	db.addDescription("className1", class1Desc1);
 	db.addDescription("className1", class1Desc2);
 	db.addDescription("className2", class2Desc);
@@ -126,12 +138,17 @@ BOOST_FIXTURE_TEST_CASE(DescriptorValuesArePreserved, StartedFileDescriptionDBMa
 
 	for(std::size_t i = 0; i < class1Desc1.size(); i++)
 	{
-		BOOST_CHECK_CLOSE(base.at("className1").at(0).at(i).real(), class1Desc1.at(i).real(), MAX_PERCENTAGE_DIFFERENCE);
+/*		BOOST_CHECK_CLOSE(base.at("className1").at(0).at(i).real(), class1Desc1.at(i).real(), MAX_PERCENTAGE_DIFFERENCE);
 		BOOST_CHECK_CLOSE(base.at("className1").at(0).at(i).imag(), class1Desc1.at(i).imag(), MAX_PERCENTAGE_DIFFERENCE);
 		BOOST_CHECK_CLOSE(base.at("className1").at(1).at(i).real(), class1Desc2.at(i).real(), MAX_PERCENTAGE_DIFFERENCE);
 		BOOST_CHECK_CLOSE(base.at("className1").at(1).at(i).imag(), class1Desc2.at(i).imag(), MAX_PERCENTAGE_DIFFERENCE);
 		BOOST_CHECK_CLOSE(base.at("className2").at(0).at(i).real(), class2Desc.at(i).real(), MAX_PERCENTAGE_DIFFERENCE);
 		BOOST_CHECK_CLOSE(base.at("className2").at(0).at(i).imag(), class2Desc.at(i).imag(), MAX_PERCENTAGE_DIFFERENCE);
+*/
+		BOOST_CHECK_CLOSE(base.at("className1").at(0).at(i), class1Desc1.at(i), MAX_PERCENTAGE_DIFFERENCE);
+		BOOST_CHECK_CLOSE(base.at("className1").at(1).at(i), class1Desc2.at(i), MAX_PERCENTAGE_DIFFERENCE);
+		BOOST_CHECK_CLOSE(base.at("className2").at(0).at(i), class2Desc.at(i), MAX_PERCENTAGE_DIFFERENCE);
+
 	}
 }
 
@@ -139,23 +156,35 @@ BOOST_FIXTURE_TEST_CASE(FinishingSavesEachClassToFileInReadableForm, StartedFile
 {
 
 	ObjectDescription class1Desc1(4);
-	class1Desc1[0] = Descriptor(3, 2);
-	class1Desc1[1] = Descriptor(-4, 1);
-	class1Desc1[2] = Descriptor(3, 0.5);
-	class1Desc1[3] = Descriptor(2, 2);
+	//	class1Desc1[0] = Descriptor(3, 2);
+	//	class1Desc1[1] = Descriptor(-4, 1);
+	//	class1Desc1[2] = Descriptor(3, 0.5);
+	//	class1Desc1[3] = Descriptor(2, 2);
+		class1Desc1[0] = Descriptor(3);
+		class1Desc1[1] = Descriptor(-4);
+		class1Desc1[2] = Descriptor(3);
+		class1Desc1[3] = Descriptor(2);
 
 	ObjectDescription class1Desc2(4);
-	class1Desc2[0] = Descriptor(4, 20);
-	class1Desc2[1] = Descriptor(14, 51);
-	class1Desc2[2] = Descriptor(3.55, 0.5);
-	class1Desc2[3] = Descriptor(2.1, 2);
+	//	class1Desc2[0] = Descriptor(4, 20);
+	//	class1Desc2[1] = Descriptor(14, 51);
+	//	class1Desc2[2] = Descriptor(3.55, 0.5);
+	//	class1Desc2[3] = Descriptor(2.1, 2);
+	class1Desc2[0] = Descriptor(20);
+	class1Desc2[1] = Descriptor(51);
+	class1Desc2[2] = Descriptor(0.5);
+	class1Desc2[3] = Descriptor(2);
 
 	ObjectDescription class2Desc(4);
-	class2Desc[0] = Descriptor(-1, 6);
-	class2Desc[1] = Descriptor(-11, 6.11);
-	class2Desc[2] = Descriptor(7, 999);
-	class2Desc[3] = Descriptor(-1, 1);
-	
+	//	class2Desc[0] = Descriptor(-1, 6);
+	//	class2Desc[1] = Descriptor(-11, 6.11);
+	//	class2Desc[2] = Descriptor(7, 999);
+	//	class2Desc[3] = Descriptor(-1, 1);
+	class2Desc[0] = Descriptor(6);
+	class2Desc[1] = Descriptor(6.11);
+	class2Desc[2] = Descriptor(7);
+	class2Desc[3] = Descriptor(1);
+
 	db.addDescription("className1", class1Desc1);
 	db.addDescription("className1", class1Desc2);
 	db.addDescription("className2", class2Desc);
@@ -179,12 +208,17 @@ BOOST_FIXTURE_TEST_CASE(FinishingSavesEachClassToFileInReadableForm, StartedFile
 
 	for(std::size_t i = 0; i < class1Desc1.size(); i++)
 	{
+		/*
 		BOOST_CHECK_CLOSE(base.at("className1").at(0).at(i).real(), class1Desc1.at(i).real(), MAX_PERCENTAGE_DIFFERENCE);
 		BOOST_CHECK_CLOSE(base.at("className1").at(0).at(i).imag(), class1Desc1.at(i).imag(), MAX_PERCENTAGE_DIFFERENCE);
 		BOOST_CHECK_CLOSE(base.at("className1").at(1).at(i).real(), class1Desc2.at(i).real(), MAX_PERCENTAGE_DIFFERENCE);
 		BOOST_CHECK_CLOSE(base.at("className1").at(1).at(i).imag(), class1Desc2.at(i).imag(), MAX_PERCENTAGE_DIFFERENCE);
 		BOOST_CHECK_CLOSE(base.at("className2").at(0).at(i).real(), class2Desc.at(i).real(), MAX_PERCENTAGE_DIFFERENCE);
 		BOOST_CHECK_CLOSE(base.at("className2").at(0).at(i).imag(), class2Desc.at(i).imag(), MAX_PERCENTAGE_DIFFERENCE);
+		*/
+		BOOST_CHECK_CLOSE(base.at("className1").at(1).at(i), class1Desc2.at(i), MAX_PERCENTAGE_DIFFERENCE);
+		BOOST_CHECK_CLOSE(base.at("className2").at(0).at(i), class2Desc.at(i), MAX_PERCENTAGE_DIFFERENCE);
+		BOOST_CHECK_CLOSE(base.at("className1").at(0).at(i), class1Desc1.at(i), MAX_PERCENTAGE_DIFFERENCE);
 	}
 }
 

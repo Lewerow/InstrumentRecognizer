@@ -21,9 +21,11 @@ namespace
 	void writeObjectDescriptionToStream(std::ostream& stream, const ObjectDescription& desc)
 	{
 		auto i = desc.begin();
-		stream<< desc.begin()->real() << "," << desc.begin()->imag();
-		for(i++; i != desc.end(); i++)
-				stream<<","<<i->real()<<","<<i->imag();
+		// stream<< desc.begin()->real() << "," << desc.begin()->imag();
+		stream << *desc.begin();
+		for (i++; i != desc.end(); i++)
+			//stream<<","<<i->real()<<","<<i->imag();
+			stream<<","<<*i;
 
 		stream << std::endl;
 	}
@@ -182,9 +184,10 @@ ObjectDescription FileDescriptionDBManager::loadObjectDescription(const std::str
 		auto it = numbers.begin();
 		while(it < numbers.end())
 		{
-			Descriptor::value_type re = boost::lexical_cast<Descriptor::value_type>(*it++);
-			Descriptor::value_type im = boost::lexical_cast<Descriptor::value_type>(*it++);
-			entireDescription.push_back(Descriptor(re, im));
+//			Descriptor::value_type re = boost::lexical_cast<Descriptor::value_type>(*it++);
+//			Descriptor::value_type im = boost::lexical_cast<Descriptor::value_type>(*it++);
+//			entireDescription.push_back(Descriptor(re, im));
+			entireDescription.push_back(Descriptor(boost::lexical_cast<Descriptor>(*it++)));
 		}
 	}
 	catch(boost::bad_lexical_cast err)
