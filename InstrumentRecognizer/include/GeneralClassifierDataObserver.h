@@ -9,6 +9,7 @@ public:
 	virtual void notifyFinishedTraining(Classifier*);
 
 	virtual void visit(Classifier*);
+	virtual void visit(ILAClassifier*);
 	virtual void visit(LinearClassifier*);
 	virtual void visit(RandomClassifier*);
 	virtual void visit(NearestNeighborClassifier*);

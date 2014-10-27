@@ -30,6 +30,13 @@ void GeneralDataClassifierObserver::visit(Classifier* c)
 	footer = "";
 }
 
+void GeneralDataClassifierObserver::visit(ILAClassifier* c)
+{
+	title = "ILAClassifier";
+	header = "Results for ILA Classification Algorithm";
+	footer = "End of results for ILA";
+}
+
 void GeneralDataClassifierObserver::visit(RandomClassifier*)
 {
 	title = "RandomClassifier";
