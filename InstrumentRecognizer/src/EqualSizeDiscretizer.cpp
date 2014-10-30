@@ -21,9 +21,9 @@ void EqualSizeDiscretizer::teach()
 		}
 	}
 
-	Descriptor diff = max - min;
-	for (std::size_t i = 0; i < mParts - 1; ++i)
-		thresholds.push_back(min + diff);
+	Descriptor diff = (max - min) / mParts;
+	for (std::size_t i = 1; i < mParts; ++i)
+		thresholds.push_back(min + i*diff);
 }
 
 Discretized EqualSizeDiscretizer::discretize(Descriptor value)

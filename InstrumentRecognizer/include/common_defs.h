@@ -16,7 +16,7 @@ typedef std::vector<ObjectDescription> ClassDescription;
 typedef std::unordered_map<ClassName, ClassDescription> ClassDescriptionBase;
 
 //typedef std::complex<double> Descriptor;
-typedef int Discretized;
+typedef unsigned int Discretized;
 typedef std::vector<Discretized> DiscretizedObjectDescription;
 typedef std::vector<DiscretizedObjectDescription> DiscretizedClassDescription;
 typedef std::unordered_map<ClassName, DiscretizedClassDescription> DiscretizedClassDescriptionBase;

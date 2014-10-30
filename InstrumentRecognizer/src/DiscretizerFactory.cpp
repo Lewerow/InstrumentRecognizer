@@ -8,7 +8,9 @@ std::unique_ptr<Discretizer> DiscretizerFactory::getDefaultDiscretizer(std::size
 std::unique_ptr<Discretizer> DiscretizerFactory::getDiscretizer(const std::string& name, std::size_t maxParts, const ClassDescriptionBase& base, std::size_t attributeNum)
 {
 	IR_ASSERT(creators.count(name) == 0, "Default creator must exist");
-	return creators.at(name)(maxParts, base, attributeNum);
+	auto ptr = creators.at(name)(maxParts, base, attributeNum);
+	ptr->teach();
+	return ptr;
 }
 
 void DiscretizerFactory::registerCreator(const std::string& name, Creator f)
