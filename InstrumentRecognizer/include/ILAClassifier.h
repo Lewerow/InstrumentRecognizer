@@ -2,7 +2,8 @@
 #define ILA_CLASSIFIER_H_fmeiowfm3489gjtrgbfkdfmdsklmewof34iufgui43gj54gt
 
 #include <Classifier.h>
-#include <TrivialDiscretizer.h>
+#include <Discretizer.h>
+#include <DiscretizerFactory.h>
 
 class ILAClassifier : public Classifier
 {
@@ -29,7 +30,7 @@ private:
 	virtual void discretize();
 
 	DiscretizedClassDescriptionBase discretizedBase;
-	std::vector<TrivialDiscretizer> discretizers;
+	std::vector<std::unique_ptr<Discretizer> > discretizers;
 };
 
 

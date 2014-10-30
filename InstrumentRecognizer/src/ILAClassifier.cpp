@@ -1,5 +1,6 @@
 #include <ILAClassifier.h>
 #include <ClassifierVisitor.h>
+#include <EqualSizeDiscretizer.h>
 
 ILAClassifier* ILAClassifier::Builder::build()
 {
@@ -64,7 +65,7 @@ void ILAClassifier::discretize()
 	std::size_t attributeCount = descriptionBase.begin()->second[0].size();
 
 	for (std::size_t i = 0; i < attributeCount; ++i)
-		discretizers.push_back(TrivialDiscretizer(10, descriptionBase, i));
+		discretizers.emplace_back(new EqualSizeDiscretizer(10, descriptionBase, i));
 
 	for (auto& k : descriptionBase)
 	{
@@ -72,8 +73,8 @@ void ILAClassifier::discretize()
 		for (auto& j : k.second)
 		{
 			DiscretizedObjectDescription desc;
-			for (int i = 0; i < j.size(); ++i)
-				desc.push_back(discretizers[i].discretize(j[i]));
+			for (std::size_t i = 0; i < j.size(); ++i)
+				desc.push_back(discretizers[i]->discretize(j[i]));
 
 			d.push_back(desc);
 		}

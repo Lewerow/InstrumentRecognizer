@@ -1,19 +1,16 @@
 #ifndef DISCRETIZER_H_fdsifj3498j5ugfjfkldsfjdfnvkdfjvnrevijviurt
 #define DISCRETIZER_H_fdsifj3498j5ugfjfkldsfjdfnvkdfjvnrevijviurt
 
-#include <common_defs.h>
+#include <Discretizer.h>
 
-class TrivialDiscretizer
+class EqualSizeDiscretizer : public Discretizer
 {
 public:
-	TrivialDiscretizer(std::size_t maxParts, const ClassDescriptionBase& base, std::size_t attributeNum);
+	EqualSizeDiscretizer(std::size_t maxParts, const ClassDescriptionBase& base, std::size_t attributeNum);
 	Discretized discretize(Descriptor value);
 		
 private:
-	std::size_t mParts;
-	const ClassDescriptionBase& mBase;
-	std::size_t mAttribute;
-
+	void teach();
 	std::vector<Descriptor> thresholds;
 };
 
