@@ -7,6 +7,8 @@ class Discretizer
 {
 public:
 	Discretizer(std::size_t maxParts, const ClassDescriptionBase&, std::size_t attributeNum);
+    virtual ~Discretizer() {}
+
 	virtual Discretized discretize(Descriptor value) = 0;
 	virtual void teach() = 0;
 	

@@ -9,13 +9,11 @@
 #include <pugixml.hpp>
 
 typedef std::string ClassName;
-//typedef std::complex<double> Descriptor;
 typedef double Descriptor;
 typedef std::vector<Descriptor> ObjectDescription;
 typedef std::vector<ObjectDescription> ClassDescription;
 typedef std::unordered_map<ClassName, ClassDescription> ClassDescriptionBase;
 
-//typedef std::complex<double> Descriptor;
 typedef unsigned int Discretized;
 typedef std::vector<Discretized> DiscretizedObjectDescription;
 typedef std::vector<DiscretizedObjectDescription> DiscretizedClassDescription;

@@ -2,6 +2,16 @@
 #include <ClassifierVisitor.h>
 #include <EqualSizeDiscretizer.h>
 
+namespace
+{
+    ClassifierResults singleResultClass(const ClassName& name)
+    {
+        ClassifierResults res;
+        res.emplace(name, 1);
+        return res;
+    }
+}
+
 ILAClassifier* ILAClassifier::Builder::build()
 {
 	return new ILAClassifier;
@@ -42,7 +52,17 @@ ClassName ILAClassifier::doClassification(const ClassifierResults& res) const
 
 ClassifierResults ILAClassifier::doCalculation(const ObjectDescription& desc) const
 {
-	return ClassifierResults();
+    DiscretizedObjectDescription obj(discretizeSingleObject(desc));
+
+    boost::optional<ClassName> cls;
+    for (auto& r : rules)
+    {
+        cls = r.classify(obj);
+        if (cls.is_initialized())
+            return singleResultClass(cls.get());
+    }
+
+    return singleResultClass("");
 }
 
 void ILAClassifier::accept(ClassifierVisitor* visitor)
@@ -52,34 +72,40 @@ void ILAClassifier::accept(ClassifierVisitor* visitor)
 
 void ILAClassifier::doRun()
 {
-	discretize();
+	discretizeAll();
+    teach();
 }
 
 void ILAClassifier::doStop()
-{
+{}
 
+void ILAClassifier::teach()
+{
+    
 }
 
-void ILAClassifier::discretize()
+DiscretizedObjectDescription ILAClassifier::discretizeSingleObject(const ObjectDescription& obj) const
+{
+    DiscretizedObjectDescription desc;
+    for (std::size_t i = 0; i < obj.size(); ++i)
+        desc.push_back(discretizers[i]->discretize(obj[i]));
+
+    return desc;
+}
+
+void ILAClassifier::discretizeAll()
 {
 	std::size_t attributeCount = descriptionBase.begin()->second[0].size();
 
 	for (std::size_t i = 0; i < attributeCount; ++i)
-		discretizers.emplace_back(new EqualSizeDiscretizer(10, descriptionBase, i));
+		discretizers.push_back(std::make_unique<EqualSizeDiscretizer>(10, descriptionBase, i));
 
-	for (auto& k : descriptionBase)
+    for (auto& k : descriptionBase)
 	{
 		DiscretizedClassDescription d;
-		for (auto& j : k.second)
-		{
-			DiscretizedObjectDescription desc;
-			for (std::size_t i = 0; i < j.size(); ++i)
-				desc.push_back(discretizers[i]->discretize(j[i]));
-
-			d.push_back(desc);
-		}
+		for (auto& objectDescription : k.second)
+            d.push_back(discretizeSingleObject(objectDescription));
 
 		discretizedBase.insert(std::make_pair(k.first, d));
 	}
-
 }

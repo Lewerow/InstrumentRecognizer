@@ -5,6 +5,8 @@
 #include <Discretizer.h>
 #include <DiscretizerFactory.h>
 
+#include <ILARule.h>
+
 class ILAClassifier : public Classifier
 {
 public:
@@ -27,11 +29,13 @@ private:
 	virtual void doRun();
 	virtual void doStop();
 
-	virtual void discretize();
+    void teach();
+	void discretizeAll();
+    DiscretizedObjectDescription discretizeSingleObject(const ObjectDescription&) const;
 
 	DiscretizedClassDescriptionBase discretizedBase;
 	std::vector<std::unique_ptr<Discretizer> > discretizers;
+    std::vector<ILARule> rules;
 };
-
 
 #endif
