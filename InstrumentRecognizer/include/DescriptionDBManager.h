@@ -4,6 +4,7 @@
 
 #include <ostream>
 #include <mutex>
+#include <map>
 
 #include <boost/filesystem.hpp>
 
@@ -20,7 +21,11 @@ public:
 
 	virtual void addDescription(const ClassName&, const ObjectDescription&) = 0;
 
-	virtual const ClassDescriptionBase& getDescriptions() const = 0 ;
+	virtual ClassDescriptionBase getTrainingDescriptions() const = 0;
+	virtual ClassDescriptionBase getTestDescriptions() const = 0;
+	virtual void nextCrossValidationSet() = 0;
+	virtual void previousCrossValidationSet() = 0;
+
 
 	virtual ~DescriptionDBManager() {}
 
@@ -33,7 +38,7 @@ public:
 class FileDescriptionDBManager : public DescriptionDBManager
 {
 public:
-	FileDescriptionDBManager(const boost::filesystem::path& path);
+	FileDescriptionDBManager(const boost::filesystem::path& path, int foldCount);
 	virtual ~FileDescriptionDBManager(void);
 	
 	virtual void startGathering();
@@ -45,14 +50,20 @@ public:
 	virtual void saveDescriptions(const boost::filesystem::path&);
 	virtual void loadDescriptions(const std::string&);
 	virtual void saveDescriptions(const std::string&);
-	virtual const ClassDescriptionBase& getDescriptions() const;
-	
+	virtual ClassDescriptionBase getTrainingDescriptions() const;
+	virtual ClassDescriptionBase getTestDescriptions() const;
+	void nextCrossValidationSet();
+	void previousCrossValidationSet();
+
 	struct InvalidFile : std::runtime_error
 	{
 		InvalidFile(std::string msg) : std::runtime_error(msg) {}
 	};
+
 protected:
-	ClassDescriptionBase descriptions;
+	std::vector<ClassDescriptionBase> descriptions;
+	std::map<ClassName, std::size_t> currentDescriptionLocation;
+	std::size_t currentOddOneOut;
 
 	void checkIfHasValidNumberOfDescriptors(const ObjectDescription&);
 	
@@ -68,9 +79,7 @@ private:
 	ObjectDescription loadObjectDescription(const std::string& inputStr) const;
 
 	FileDescriptionDBManager(const FileDescriptionDBManager&) = delete;
-	FileDescriptionDBManager(const FileDescriptionDBManager&&) = delete;
 	FileDescriptionDBManager& operator=(const FileDescriptionDBManager&) = delete;
-	FileDescriptionDBManager& operator=(const FileDescriptionDBManager&&) = delete;
 
 };
 

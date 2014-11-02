@@ -47,7 +47,7 @@ BOOST_AUTO_TEST_CASE(WorksCorrectly)
 	MOCK_EXPECT(reportBuilderMock->startReport).once().with(classifierMock.get()).returns(reportID);
 		
 	ClassDescriptionBase base;
-	MOCK_EXPECT(descriptionDBManagerMock->getDescriptions).once().returns(base);
+	MOCK_EXPECT(descriptionDBManagerMock->getTrainingDescriptions).once().returns(base);
 	for (auto& o : observerMocks)
 		MOCK_EXPECT(o->notifyReceivedNewData).once();
 

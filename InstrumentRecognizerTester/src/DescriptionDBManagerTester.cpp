@@ -7,7 +7,7 @@ struct FileDescriptionDBManagerFixture
 	boost::filesystem::path path;
 	FileDescriptionDBManager db;
 
-	FileDescriptionDBManagerFixture() : path(std::string("../../../InstrumentRecognizerTester/test_files/descriptions")), db(path) {}
+	FileDescriptionDBManagerFixture() : path(std::string("../../../InstrumentRecognizerTester/test_files/descriptions")), db(path, 1) {}
 
 };
 
@@ -27,7 +27,7 @@ BOOST_AUTO_TEST_SUITE(FileDescription)
 
 BOOST_AUTO_TEST_CASE(WheGivenFileNameAsPathAsserts)
 {
-	BOOST_CHECK_THROW(FileDescriptionDBManager("../../../InstrumentRecognizerTester/test_files/two/one.txt"), AssertException);
+	BOOST_CHECK_THROW(FileDescriptionDBManager("../../../InstrumentRecognizerTester/test_files/two/one.txt", 1), AssertException);
 }
 
 BOOST_FIXTURE_TEST_CASE(NotStartedFileDescriptionDBManagerThrowsNotStartedWhenAdding, FileDescriptionDBManagerFixture)
@@ -49,11 +49,11 @@ BOOST_FIXTURE_TEST_CASE(AfterSingleAddOneElementInResultAfterResetGetsEmpty, Sta
 {
 	db.addDescription("className", ObjectDescription(2));
 	
-	BOOST_CHECK_EQUAL(db.getDescriptions().size(), 1);
+	BOOST_CHECK_EQUAL(db.getTrainingDescriptions().size(), 1);
 
 	db.reset();
 	
-	BOOST_CHECK_EQUAL(db.getDescriptions().size(), 0);
+	BOOST_CHECK_EQUAL(db.getTrainingDescriptions().size(), 0);
 }
 
 BOOST_FIXTURE_TEST_CASE(AddingDifferentNumberOfDescriptorsThrowsInvalidNumberOfDescriptors, StartedFileDescriptionDBManagerFixture)
@@ -67,8 +67,8 @@ BOOST_FIXTURE_TEST_CASE(AfterTwoAddsToSameClassOneClassWithTwoDescriptionsInResu
 	db.addDescription("className", ObjectDescription(2));
 	db.addDescription("className", ObjectDescription(2));
 	
-	BOOST_CHECK_EQUAL(db.getDescriptions().size(), 1);
-	BOOST_CHECK_EQUAL(db.getDescriptions().at("className").size(), 2);
+	BOOST_CHECK_EQUAL(db.getTrainingDescriptions().size(), 1);
+	BOOST_CHECK_EQUAL(db.getTrainingDescriptions().at("className").size(), 2);
 }
 
 BOOST_FIXTURE_TEST_CASE(AfterTwoAddsToDifferentClassesTwoClassesWithOneDescriptionEachInResult, StartedFileDescriptionDBManagerFixture)
@@ -76,14 +76,14 @@ BOOST_FIXTURE_TEST_CASE(AfterTwoAddsToDifferentClassesTwoClassesWithOneDescripti
 	db.addDescription("className1", ObjectDescription(2));
 	db.addDescription("className2", ObjectDescription(2));
 	
-	BOOST_CHECK_EQUAL(db.getDescriptions().size(), 2);
-	BOOST_CHECK_EQUAL(db.getDescriptions().at("className1").size(), 1);
-	BOOST_CHECK_EQUAL(db.getDescriptions().at("className2").size(), 1);
+	BOOST_CHECK_EQUAL(db.getTrainingDescriptions().size(), 2);
+	BOOST_CHECK_EQUAL(db.getTrainingDescriptions().at("className1").size(), 1);
+	BOOST_CHECK_EQUAL(db.getTrainingDescriptions().at("className2").size(), 1);
 }
 
 BOOST_AUTO_TEST_CASE(AddingAfterFinishedAsserts)
 {
-	FileDescriptionDBManager db("../../../InstrumentRecognizerTester/test_files/trash");
+	FileDescriptionDBManager db("../../../InstrumentRecognizerTester/test_files/trash", 1);
 	db.startGathering();
 
 	db.addDescription("className_trash", ObjectDescription(2));
@@ -92,10 +92,10 @@ BOOST_AUTO_TEST_CASE(AddingAfterFinishedAsserts)
 
 	BOOST_CHECK_THROW(db.addDescription("className2", ObjectDescription(2)), AssertException);
 
-	BOOST_CHECK_EQUAL(db.getDescriptions().size(), 1);
-	BOOST_CHECK_EQUAL(db.getDescriptions().count("className_trash"), 1);
-	BOOST_CHECK_EQUAL(db.getDescriptions().at("className_trash").size(), 1);
-	BOOST_CHECK_EQUAL(db.getDescriptions().count("className2"), 0);
+	BOOST_CHECK_EQUAL(db.getTrainingDescriptions().size(), 1);
+	BOOST_CHECK_EQUAL(db.getTrainingDescriptions().count("className_trash"), 1);
+	BOOST_CHECK_EQUAL(db.getTrainingDescriptions().at("className_trash").size(), 1);
+	BOOST_CHECK_EQUAL(db.getTrainingDescriptions().count("className2"), 0);
 }
 
 BOOST_FIXTURE_TEST_CASE(DescriptorValuesArePreserved, StartedFileDescriptionDBManagerFixture)
@@ -134,7 +134,7 @@ BOOST_FIXTURE_TEST_CASE(DescriptorValuesArePreserved, StartedFileDescriptionDBMa
 	db.addDescription("className1", class1Desc2);
 	db.addDescription("className2", class2Desc);
 
-	const ClassDescriptionBase& base = db.getDescriptions();
+	const ClassDescriptionBase& base = db.getTrainingDescriptions();
 
 	for(std::size_t i = 0; i < class1Desc1.size(); i++)
 	{
@@ -191,20 +191,20 @@ BOOST_FIXTURE_TEST_CASE(FinishingSavesEachClassToFileInReadableForm, StartedFile
 
 	db.finishGathering();
 	
-	BOOST_REQUIRE_EQUAL(db.getDescriptions().size(), 2);
+	BOOST_REQUIRE_EQUAL(db.getTrainingDescriptions().size(), 2);
 
 	db.reset();
 	
-	BOOST_REQUIRE_EQUAL(db.getDescriptions().size(), 0);
+	BOOST_REQUIRE_EQUAL(db.getTrainingDescriptions().size(), 0);
 	
 	db.loadDescriptions(path);
 	
-	BOOST_REQUIRE_EQUAL(db.getDescriptions().size(), 2);
-	BOOST_CHECK_EQUAL(db.getDescriptions().at("className1").size(), 2);
-	BOOST_CHECK_EQUAL(db.getDescriptions().at("className2").size(), 1);
+	BOOST_REQUIRE_EQUAL(db.getTrainingDescriptions().size(), 2);
+	BOOST_CHECK_EQUAL(db.getTrainingDescriptions().at("className1").size(), 2);
+	BOOST_CHECK_EQUAL(db.getTrainingDescriptions().at("className2").size(), 1);
 
 
-	const ClassDescriptionBase& base = db.getDescriptions();
+	const ClassDescriptionBase& base = db.getTrainingDescriptions();
 
 	for(std::size_t i = 0; i < class1Desc1.size(); i++)
 	{

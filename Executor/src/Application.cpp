@@ -224,7 +224,7 @@ namespace application
 		app::pimpl->factories->describer.reset(setup::describer_factory());
 
 		app::pimpl->db_managers->data.reset(setup::data_db_manager(vars.at("data_dir").as<std::string>(), vars.at("data_ext").as<std::string>()));
-		app::pimpl->db_managers->description.reset(setup::description_db_manager_for_describing(vars.at("description_dir").as<std::string>()));
+		app::pimpl->db_managers->description.reset(setup::description_db_manager_for_describing(vars.at("description_dir").as<std::string>(), 5));
 	}
 
 	void describing::run()

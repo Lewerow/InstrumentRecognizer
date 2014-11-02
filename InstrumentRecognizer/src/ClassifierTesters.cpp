@@ -26,7 +26,7 @@ void CorrectClassifierTester::notifyFinishedTraining(Classifier* classifier)
 	
 	auto repBuilder = reportBuilder.get();
 
-	const ClassDescriptionBase& desc = descriptionDBManager->getDescriptions();
+	const ClassDescriptionBase& desc = descriptionDBManager->getTestDescriptions();
 	
 	unsigned int classifiedCorrectlyTotal = 0;
 	unsigned int classifiedIncorrectlyTotal = 0;

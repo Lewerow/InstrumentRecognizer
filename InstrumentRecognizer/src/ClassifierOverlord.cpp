@@ -31,7 +31,7 @@ void ClassifierOverlord::teachOne()
 	}
 
 	Report::ID reportID = reportBuilder.get()->startReport(classifier.get());
-	classifier->setInputData(descriptionDBManager->getDescriptions());
+	classifier->setInputData(descriptionDBManager->getTrainingDescriptions());
 	classifier->run();
 
 	reportBuilder.get()->endReport(reportID);

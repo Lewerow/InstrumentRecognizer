@@ -13,6 +13,9 @@ MOCK_BASE_CLASS(DescriptionDBManagerMock, DescriptionDBManager)
 
 	MOCK_METHOD_EXT(addDescription, 2, void (const ClassName&, const ObjectDescription&), addDescription);
 	MOCK_METHOD_EXT(loadDescriptions, 1, void (const std::string&), loadDescriptions);
-	MOCK_METHOD_EXT(saveDescriptions, 1, void (const std::string&), saveDescriptions);
-	MOCK_METHOD_EXT(getDescriptions, 0, const ClassDescriptionBase& (), getDescriptions);
+	MOCK_METHOD_EXT(saveDescriptions, 1, void(const std::string&), saveDescriptions);
+	MOCK_METHOD_EXT(getTrainingDescriptions, 0, ClassDescriptionBase(), getTrainingDescriptions);
+	MOCK_METHOD_EXT(getTestDescriptions, 0, ClassDescriptionBase(), getTestDescriptions);
+	MOCK_METHOD_EXT(nextCrossValidationSet, 0, void(), nextCrossValidationSet);
+	MOCK_METHOD_EXT(previousCrossValidationSet, 0, void(), previousCrossValidationSet);
 };
