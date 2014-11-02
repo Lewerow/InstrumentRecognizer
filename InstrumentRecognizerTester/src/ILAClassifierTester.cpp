@@ -44,8 +44,8 @@ BOOST_AUTO_TEST_CASE(ILAClassifierBasicTests)
     classifier.run();
 
     BOOST_CHECK_EQUAL("", classifier.classify({ 1, 10, 100 }));
-//    BOOST_CHECK_EQUAL("a", classifier.classify({ 1, 1, 1 }));
-//    BOOST_CHECK_EQUAL("b", classifier.classify({ 11, 12, 13 }));
+    BOOST_CHECK_EQUAL("a", classifier.classify({ 1, 1, 1 }));
+    BOOST_CHECK_EQUAL("b", classifier.classify({ 11, 12, 13 }));
 }
 
 BOOST_AUTO_TEST_SUITE_END()

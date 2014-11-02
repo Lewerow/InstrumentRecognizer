@@ -81,7 +81,8 @@ void ILAClassifier::doStop()
 
 void ILAClassifier::teach()
 {
-    
+    DiscretizedClassDescription currentClass = discretizedBase.begin()->second;
+    ClassName currentClassName = discretizedBase.begin()->first;
 }
 
 DiscretizedObjectDescription ILAClassifier::discretizeSingleObject(const ObjectDescription& obj) const
