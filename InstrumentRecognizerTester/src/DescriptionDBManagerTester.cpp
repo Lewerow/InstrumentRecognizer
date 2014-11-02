@@ -25,6 +25,21 @@ struct StartedFileDescriptionDBManagerFixture : public FileDescriptionDBManagerF
 BOOST_AUTO_TEST_SUITE(DBManagers)
 BOOST_AUTO_TEST_SUITE(FileDescription)
 
+BOOST_AUTO_TEST_CASE(WorksWithCrossvalidation)
+{
+	FileDescriptionDBManager db(("../../../InstrumentRecognizerTester/test_files/descriptions"), 2);
+	db.loadDescriptions(boost::filesystem::path("../../../InstrumentRecognizerTester/test_files/descriptions"));
+
+	ClassDescriptionBase test = db.getTestDescriptions();
+	ClassDescriptionBase train = db.getTrainingDescriptions();
+
+	BOOST_REQUIRE_EQUAL(2, test.size());
+	BOOST_CHECK_EQUAL(1, test.begin()->second.size());
+	BOOST_CHECK_EQUAL(1, ((++test.begin())->second.size()));
+	BOOST_REQUIRE_EQUAL(1, train.size());
+	BOOST_CHECK_EQUAL(1, train.size());
+}
+
 BOOST_AUTO_TEST_CASE(WheGivenFileNameAsPathAsserts)
 {
 	BOOST_CHECK_THROW(FileDescriptionDBManager("../../../InstrumentRecognizerTester/test_files/two/one.txt", 1), AssertException);
