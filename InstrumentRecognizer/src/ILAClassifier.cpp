@@ -1,6 +1,7 @@
 #include <ILAClassifier.h>
 #include <ClassifierVisitor.h>
 #include <EqualSizeDiscretizer.h>
+#include <AttributeCombinations.h>
 
 namespace
 {
@@ -10,6 +11,37 @@ namespace
         res.emplace(name, 1);
         return res;
     }
+
+	ILADescription extractDescription(const std::vector<unsigned int>& importantFields, const DiscretizedObjectDescription& desc)
+	{
+		ILADescription res(desc.size(), boost::none);
+
+		for (auto f : importantFields)
+			res[f] = desc[f];
+
+		return res;
+	}
+
+	bool operator<(const ILADescription& lhs, const ILADescription& rhs)
+	{
+		IR_ASSERT(lhs.size() == rhs.size(), "Compared ILADescriptions must have same sizes");
+
+		for (std::size_t i = 0; i < lhs.size(); ++i)
+		{
+			if (!lhs[i].is_initialized() && rhs[i].is_initialized())
+				return true;
+
+			if (lhs[i].is_initialized() && !rhs[i].is_initialized())
+				return false;
+
+			if (lhs[i] == rhs[i])
+				continue;
+
+			return lhs[i] < rhs[i];
+		}
+
+		return false;
+	}
 }
 
 ILAClassifier* ILAClassifier::Builder::build()
@@ -54,12 +86,10 @@ ClassifierResults ILAClassifier::doCalculation(const ObjectDescription& desc) co
 {
     DiscretizedObjectDescription obj(discretizeSingleObject(desc));
 
-    boost::optional<ClassName> cls;
     for (auto& r : rules)
     {
-        cls = r.classify(obj);
-        if (cls.is_initialized())
-            return singleResultClass(cls.get());
+        if (r.matches(obj))
+            return singleResultClass(r.name());
     }
 
     return singleResultClass("");
@@ -81,8 +111,45 @@ void ILAClassifier::doStop()
 
 void ILAClassifier::teach()
 {
-    DiscretizedClassDescription currentClass = discretizedBase.begin()->second;
-    ClassName currentClassName = discretizedBase.begin()->first;
+	AttributeCombinations comb(discretizedBase.begin()->second.size());
+	std::map<ILADescription, std::map<ClassName, int> > descriptionCounts;
+
+	DiscretizedClassDescriptionBase notYetDiscretized(discretizedBase);
+    for (auto usedAttributes = comb.getNextAttributeSet(); !usedAttributes.empty() && !notYetDiscretized.empty(); usedAttributes = comb.getNextAttributeSet())
+	{
+		for (auto& cls : discretizedBase)
+		{
+			for (auto& obj : cls.second)
+				++descriptionCounts[extractDescription(usedAttributes, obj)][cls.first];
+		}
+
+		for (auto& desc : descriptionCounts)
+		{
+			if (desc.second.size() == 1)
+			{
+				ClassName relevantClass = desc.second.begin()->first;
+				ILARule rule(relevantClass, desc.first);
+				rules.push_back(rule);
+
+				if (notYetDiscretized.count(relevantClass) == 0)
+					continue;
+
+				for (auto objIter = notYetDiscretized[relevantClass].begin();;)
+				{
+					if (rule.matches(*objIter))
+						objIter = notYetDiscretized[relevantClass].erase(objIter);
+					else
+						++objIter;
+
+					if (objIter == notYetDiscretized[relevantClass].end())
+						break;
+				}
+
+				if (notYetDiscretized[relevantClass].empty())
+					notYetDiscretized.erase(relevantClass);
+			}
+		}
+	}
 }
 
 DiscretizedObjectDescription ILAClassifier::discretizeSingleObject(const ObjectDescription& obj) const
@@ -99,7 +166,10 @@ void ILAClassifier::discretizeAll()
 	std::size_t attributeCount = descriptionBase.begin()->second[0].size();
 
 	for (std::size_t i = 0; i < attributeCount; ++i)
+	{
 		discretizers.push_back(std::make_unique<EqualSizeDiscretizer>(10, descriptionBase, i));
+		discretizers[i]->teach();
+	}
 
     for (auto& k : descriptionBase)
 	{

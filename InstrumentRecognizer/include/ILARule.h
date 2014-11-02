@@ -9,7 +9,9 @@ class ILARule
 public:
     ILARule(const ClassName&, const ILADescription&);
 
-    boost::optional<ClassName> classify(const DiscretizedObjectDescription& desc) const;
+    bool matches(const DiscretizedObjectDescription& desc) const;
+
+	ClassName name() const;
 
 private:
     ILADescription description;

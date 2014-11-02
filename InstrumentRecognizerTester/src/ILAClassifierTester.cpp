@@ -24,17 +24,19 @@ BOOST_AUTO_TEST_CASE(ILARuleTests)
 {
     ILARule rule(std::string("a"), { boost::none, boost::none, 2 });
 
-    BOOST_CHECK_EQUAL(boost::none, rule.classify({ 1, 1, 1 }));
-    BOOST_CHECK_EQUAL(std::string("a"), rule.classify({ 1, 2, 2 }));
+	BOOST_CHECK_EQUAL(false, rule.matches({ 1, 1, 1 }));
+	BOOST_CHECK_EQUAL(true, rule.matches({ 1, 2, 2 }));
+	BOOST_CHECK_EQUAL("a", rule.name());
 }
 
 BOOST_AUTO_TEST_CASE(ILARuleRefinedTests)
 {
     ILARule rule(std::string("a"), { 3, boost::none, 2, boost::none });
 
-    BOOST_CHECK_EQUAL(boost::none, rule.classify({ 3, 1, 1, 3 }));
-    BOOST_CHECK_EQUAL(boost::none, rule.classify({ 1, 2, 2, 2 }));
-    BOOST_CHECK_EQUAL(std::string("a"), rule.classify({ 3, 3, 2, 2 }));
+    BOOST_CHECK_EQUAL(false, rule.matches({ 3, 1, 1, 3 }));
+    BOOST_CHECK_EQUAL(false, rule.matches({ 1, 2, 2, 2 }));
+	BOOST_CHECK_EQUAL(true, rule.matches({ 3, 3, 2, 2 }));
+	BOOST_CHECK_EQUAL("a", rule.name());
 }
 
 BOOST_AUTO_TEST_CASE(ILAClassifierBasicTests)
@@ -43,7 +45,7 @@ BOOST_AUTO_TEST_CASE(ILAClassifierBasicTests)
     classifier.setInputData(getBasicClassDescriptionBase());
     classifier.run();
 
-    BOOST_CHECK_EQUAL("", classifier.classify({ 1, 10, 100 }));
+    BOOST_CHECK_EQUAL("", classifier.classify({ 5, 10, 100 }));
     BOOST_CHECK_EQUAL("a", classifier.classify({ 1, 1, 1 }));
     BOOST_CHECK_EQUAL("b", classifier.classify({ 11, 12, 13 }));
 }
