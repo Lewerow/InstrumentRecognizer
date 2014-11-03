@@ -56,9 +56,13 @@ namespace setup
 			{
 				boost::program_options::options_description describer_configuration("Describer configuration");
 				describer_configuration.add_options()
-					("data_dir", boost::program_options::value<std::string>(), "Input files directory")
+					("data_file", boost::program_options::value<std::string>(), "Path to csv file containing data")
+					("data_dir", boost::program_options::value<std::string>()->default_value("."), "Input files directory")
 					("data_ext", boost::program_options::value<std::string>()->default_value(".mp7"), "Input extension")
-					("description_dir", boost::program_options::value<std::string>(), "Directory where descriptions are located (or to be located)");
+					("data_in_separate_files", boost::program_options::value<int>()->default_value(0), "1 if data to describe is in distinct directories, 0 otherwise")
+					("description_dir", boost::program_options::value<std::string>()->default_value("."), "Directory where descriptions are located (or to be located)")
+					("fold_count", boost::program_options::value<int>()->default_value(2), "Number of folds used for crossvalidation. Must be a positive integer")
+					("class_name_column", boost::program_options::value<int>()->default_value(0), "Number of comun that contains class names. Must be a positive integer");
 
 				all.add(describer_configuration);
 			}
@@ -69,8 +73,8 @@ namespace setup
 			
 				classifier_configuration.add_options()
 					("classifier_dir", boost::program_options::value<std::string>()->default_value("."), "Directory to put trained classifiers in")
-					("classifier_type,t", boost::program_options::value<std::string>()->default_value("Linear"), "Type of classifier to use")
-					("training_data_ratio,a", boost::program_options::value<double>()->default_value(1.0), "Ratio of number of descriptions used in training to total number of decriptions");
+					("classifier_type", boost::program_options::value<std::string>()->default_value("ILA_EqualSizes_7"), "Type of classifier to use")
+					("training_data_ratio", boost::program_options::value<double>()->default_value(1.0), "Ratio of number of descriptions used in training to total number of decriptions");
 
 				all.add(classifier_configuration);
 			}
@@ -79,7 +83,7 @@ namespace setup
 			{
 				boost::program_options::options_description report_configuration("Report configuration");
 				report_configuration.add_options()
-					("reports_dir,r", boost::program_options::value<std::string>(), "Directory to put reports in")
+					("reports_dir,r", boost::program_options::value<std::string>()->default_value("."), "Directory to put reports in")
 					("report_format,f", boost::program_options::value<std::string>()->default_value("text"),"Format of reports (one or more of: text, xml, markdown, html separated with semicolons). \
 																											Currently only text is supported")
 					("report_level,l", boost::program_options::value<unsigned int>()->default_value(5), "Level of details to report. Allowed: 0 (ultra simple report) - 6 (really big report). \
