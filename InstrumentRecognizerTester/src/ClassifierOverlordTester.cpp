@@ -40,6 +40,8 @@ BOOST_AUTO_TEST_CASE(WorksCorrectly)
 {
 	Report::ID reportID(10);
 
+	MOCK_EXPECT(descriptionDBManagerMock->areFoldsRemaining).once().returns(true);
+
 	MOCK_EXPECT(classifierFactoryMock->createDefaultClassifierEmpty).once().returns(classifierMock);
 	for(auto& o: observerMocks)
 		MOCK_EXPECT(o->setReportBuilder).once().with(reportBuilderMock);
@@ -60,6 +62,8 @@ BOOST_AUTO_TEST_CASE(WorksCorrectly)
 	MOCK_EXPECT(reportBuilderMock->endReportID).once().with(reportID);
 	
 	MOCK_EXPECT(classifierDBManagerMock->addClassifier).once().with(classifierMock, boost::lexical_cast<std::string>(reportID));
+
+	MOCK_EXPECT(descriptionDBManagerMock->areFoldsRemaining).once().returns(false);
 
 	overlord.teachOne();
 }

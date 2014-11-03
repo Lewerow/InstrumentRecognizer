@@ -1,5 +1,6 @@
 #include <boost/test/auto_unit_test.hpp>
 
+#include <EqualSizeDiscretizer.h>
 #include <ILAClassifier.h>
 #include <ILARule.h>
 
@@ -41,7 +42,11 @@ BOOST_AUTO_TEST_CASE(ILARuleRefinedTests)
 
 BOOST_AUTO_TEST_CASE(ILAClassifierBasicTests)
 {
-    ILAClassifier classifier;
+	std::shared_ptr<DiscretizerFactory> factory(std::make_shared<DiscretizerFactory>(10));
+	factory->registerCreator("default", EqualSizeDiscretizer::creator);
+	factory->setDefault("default");
+
+    ILAClassifier classifier(factory);
     classifier.setInputData(getBasicClassDescriptionBase());
     classifier.run();
 

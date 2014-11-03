@@ -1,0 +1,83 @@
+Report ID: 6
+ILAClassifier
+Results for ILA Classification Algorithm
+General data
+Created on: 2014-11-03, 02:43:37
+Training time: 0 seconds
+Training iterations: 0
+Overall results
+Total training objects: 160
+Total test objects: 18
+Total correctly identified: 18
+Total incorrectly identified: 0
+Mean accurracy: 1
+Mean recall: 1
+Mean precision: 1
+Mean F-measure: 1
+RMS: N/A
+Spread: 0.0
+
+Data divided into classes
+Class 1
+Mapped to number: N/A
+Training objects: 53
+Test objects: 6
+Correctly identified: 6
+Incorrectly identified: 0
+Accurracy: 1.0000
+Recall: 1.0000
+Precision: 1.0000
+F-measure: 1.0000
+RMS: N/A
+Spread: 0
+1: 6
+
+Class 2
+Mapped to number: N/A
+Training objects: 64
+Test objects: 7
+Correctly identified: 7
+Incorrectly identified: 0
+Accurracy: 1.0000
+Recall: 1.0000
+Precision: 1.0000
+F-measure: 1.0000
+RMS: N/A
+Spread: 0
+2: 7
+
+Class 3
+Mapped to number: N/A
+Training objects: 43
+Test objects: 5
+Correctly identified: 5
+Incorrectly identified: 0
+Accurracy: 1.0000
+Recall: 1.0000
+Precision: 1.0000
+F-measure: 1.0000
+RMS: N/A
+Spread: 0
+3: 5
+
+Detailed classification data: 
+14.39 1.87 2.45 14.6 96 2.5 2.52 0.3 1.98 5.25 1.02 3.58 1290 of class 1 classified as 1
+14.3 1.92 2.72 20 120 2.8 3.14 0.33 1.97 6.2 1.07 2.65 1280 of class 1 classified as 1
+13.39 1.77 2.62 16.1 93 2.85 2.94 0.34 1.45 4.8 0.92 3.22 1195 of class 1 classified as 1
+13.28 1.64 2.84 15.5 110 2.6 2.68 0.34 1.36 4.6 1.09 2.78 880 of class 1 classified as 1
+14.38 3.59 2.28 16 102 3.25 3.17 0.27 2.19 4.9 1.04 3.44 1065 of class 1 classified as 1
+14.22 1.7 2.3 16.3 118 3.2 3 0.26 2.03 6.38 0.94 3.31 970 of class 1 classified as 1
+12.37 1.21 2.56 18.1 98 2.42 2.65 0.37 2.08 4.6 1.19 2.3 678 of class 2 classified as 2
+11.66 1.88 1.92 16 97 1.61 1.57 0.34 1.15 3.8 1.23 2.14 428 of class 2 classified as 2
+12.67 0.98 2.24 18 99 2.2 1.94 0.3 1.46 2.62 1.23 3.16 450 of class 2 classified as 2
+12.47 1.52 2.2 19 162 2.5 2.27 0.32 3.28 2.6 1.16 2.63 937 of class 2 classified as 2
+12.42 2.55 2.27 22 90 1.68 1.84 0.66 1.42 2.7 0.86 3.3 315 of class 2 classified as 2
+11.03 1.51 2.2 21.5 85 2.46 2.17 0.52 2.01 1.9 1.71 2.87 407 of class 2 classified as 2
+12.07 2.16 2.17 21 85 2.6 2.65 0.37 1.35 2.76 0.86 3.28 378 of class 2 classified as 2
+12.25 4.72 2.54 21 89 1.38 0.47 0.53 0.8 3.85 0.75 1.27 720 of class 3 classified as 3
+13.88 5.04 2.23 20 80 0.98 0.34 0.4 0.68 4.9 0.58 1.33 415 of class 3 classified as 3
+13.84 4.12 2.38 19.5 89 1.8 0.83 0.48 1.56 9.01 0.57 1.64 480 of class 3 classified as 3
+13.45 3.7 2.6 23 111 1.7 0.92 0.43 1.46 10.68 0.85 1.56 695 of class 3 classified as 3
+13.17 2.59 2.37 20 120 1.65 0.68 0.53 1.46 9.3 0.6 1.62 840 of class 3 classified as 3
+
+End of results for ILA

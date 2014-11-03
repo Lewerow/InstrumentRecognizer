@@ -43,3 +43,8 @@ Discretized EqualFrequencyDiscretizer::discretize(Descriptor value)
 
 	return thresholds.size();
 }
+
+std::unique_ptr<EqualFrequencyDiscretizer> EqualFrequencyDiscretizer::creator(std::size_t maxParts, const ClassDescriptionBase& base, std::size_t attributeNum)
+{
+	return std::make_unique<EqualFrequencyDiscretizer>(maxParts, base, attributeNum);
+}

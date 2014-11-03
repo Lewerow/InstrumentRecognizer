@@ -237,7 +237,7 @@ void FileDescriptionDBManager::nextCrossValidationSet()
 	currentOddOneOut++;
 }
 
-void FileDescriptionDBManager::previousCrossValidationSet()
+bool FileDescriptionDBManager::areFoldsRemaining()
 {
-	currentOddOneOut--;
+	return currentOddOneOut < descriptions.size();
 }

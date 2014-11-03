@@ -44,19 +44,29 @@ namespace
 	}
 }
 
+ILAClassifier::ILAClassifier(std::shared_ptr<DiscretizerFactory> disc) : discretizerFactory(disc)
+{}
+
+ILAClassifier::Builder::Builder(DiscretizerFactory::Creator discretizer, std::size_t defaultClassCount)
+{
+	factory = std::make_shared<DiscretizerFactory>(defaultClassCount);
+	factory->registerCreator("default", discretizer);
+	factory->setDefault("default");
+}
+
 ILAClassifier* ILAClassifier::Builder::build()
 {
-	return new ILAClassifier;
+	return new ILAClassifier(factory);
 }
 
 ILAClassifier* ILAClassifier::Builder::build(const std::string&)
 {
-	return new ILAClassifier;
+	return new ILAClassifier(factory);
 }
 
 ILAClassifier* ILAClassifier::Builder::build(const XMLNode&)
 {
-	return new ILAClassifier;
+	return new ILAClassifier(factory);
 }
 
 std::unique_ptr<XMLNode> ILAClassifier::Builder::dismantleToXML(std::shared_ptr<Classifier>)
@@ -73,7 +83,8 @@ std::string ILAClassifier::Builder::dismantleToText(std::shared_ptr<Classifier>)
 
 ILAClassifier::Builder* ILAClassifier::doMakeBuilder()
 {
-	return new Builder;
+	// not supported
+	return nullptr;
 }
 
 ClassName ILAClassifier::doClassification(const ClassifierResults& res) const
@@ -111,7 +122,7 @@ void ILAClassifier::doStop()
 
 void ILAClassifier::teach()
 {
-	AttributeCombinations comb(discretizedBase.begin()->second.size());
+	AttributeCombinations comb(discretizedBase.begin()->second.begin()->size());
 	std::map<ILADescription, std::map<ClassName, int> > descriptionCounts;
 
 	DiscretizedClassDescriptionBase notYetDiscretized(discretizedBase);
@@ -167,7 +178,7 @@ void ILAClassifier::discretizeAll()
 
 	for (std::size_t i = 0; i < attributeCount; ++i)
 	{
-		discretizers.push_back(std::make_unique<EqualSizeDiscretizer>(10, descriptionBase, i));
+		discretizers.push_back(discretizerFactory->getDefaultDiscretizer(boost::none, descriptionBase, i));
 		discretizers[i]->teach();
 	}
 

@@ -17,5 +17,5 @@ MOCK_BASE_CLASS(DescriptionDBManagerMock, DescriptionDBManager)
 	MOCK_METHOD_EXT(getTrainingDescriptions, 0, ClassDescriptionBase(), getTrainingDescriptions);
 	MOCK_METHOD_EXT(getTestDescriptions, 0, ClassDescriptionBase(), getTestDescriptions);
 	MOCK_METHOD_EXT(nextCrossValidationSet, 0, void(), nextCrossValidationSet);
-	MOCK_METHOD_EXT(previousCrossValidationSet, 0, void(), previousCrossValidationSet);
+	MOCK_METHOD_EXT(areFoldsRemaining, 0, bool(), areFoldsRemaining);
 };

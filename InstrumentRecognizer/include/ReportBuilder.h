@@ -34,6 +34,14 @@ public:
 	virtual void addClassifiedIncorrectTotal(Classifier*, unsigned int);
 	virtual void addSpreadSingle(Classifier*, const ClassName&, double);
 	virtual void addSpreadTotal(Classifier*, double);
+	virtual void addAccurracySingle(Classifier*, const ClassName&, double);
+	virtual void addAccurracyTotal(Classifier*, double);
+	virtual void addRecallSingle(Classifier*, const ClassName&, double);
+	virtual void addRecallTotal(Classifier*, double);
+	virtual void addPrecisionSingle(Classifier*, const ClassName&, double);
+	virtual void addPrecisionTotal(Classifier*, double);
+	virtual void addFMeasureSingle(Classifier*, const ClassName&, double);
+	virtual void addFMeasureTotal(Classifier*, double);
     virtual void addRMSSingle(Classifier*, const ClassName&, double);
 	virtual void addRMSTotal(Classifier*, double);
 	virtual void addClassToNumberMapping(Classifier*, const ClassName&, int);
@@ -43,6 +51,8 @@ public:
 	virtual void addTotalTrainingObjectCount(Classifier*, unsigned int);
 	virtual void addClassificationResult(Classifier*, const ClassName& expected, const ObjectDescription& description, const ClassName& received);
 	
+	virtual void summarize();
+
 protected:
 	struct ReportStructure;
 
@@ -52,6 +62,8 @@ protected:
 
 	std::unordered_map<Classifier*, Report::ID> pendingReports;
 	std::unordered_map<Report::ID, std::shared_ptr<ReportStructure> > reportsCache;
+
+	std::vector<std::shared_ptr<ReportStructure> > finishedReports;
 
 private:
 	void enableClassDetails(std::shared_ptr<ReportBuilder::ReportStructure> rs, const ClassName& cn);

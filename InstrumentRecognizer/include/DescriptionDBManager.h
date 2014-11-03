@@ -24,7 +24,7 @@ public:
 	virtual ClassDescriptionBase getTrainingDescriptions() const = 0;
 	virtual ClassDescriptionBase getTestDescriptions() const = 0;
 	virtual void nextCrossValidationSet() = 0;
-	virtual void previousCrossValidationSet() = 0;
+	virtual bool areFoldsRemaining() = 0;
 
 
 	virtual ~DescriptionDBManager() {}
@@ -53,7 +53,7 @@ public:
 	virtual ClassDescriptionBase getTrainingDescriptions() const;
 	virtual ClassDescriptionBase getTestDescriptions() const;
 	void nextCrossValidationSet();
-	void previousCrossValidationSet();
+	virtual bool areFoldsRemaining();
 
 	struct InvalidFile : std::runtime_error
 	{

@@ -1,5 +1,6 @@
 #include <EqualSizeDiscretizer.h>
 
+
 EqualSizeDiscretizer::EqualSizeDiscretizer(std::size_t maxParts, const ClassDescriptionBase& base, std::size_t attributeNum) : Discretizer(maxParts, base, attributeNum)
 {}
 
@@ -35,4 +36,9 @@ Discretized EqualSizeDiscretizer::discretize(Descriptor value)
 	}
 
 	return thresholds.size();
+}
+
+std::unique_ptr<EqualSizeDiscretizer> EqualSizeDiscretizer::creator(std::size_t maxParts, const ClassDescriptionBase& base, std::size_t attributeNum)
+{
+	return std::make_unique<EqualSizeDiscretizer>(maxParts, base, attributeNum);
 }
