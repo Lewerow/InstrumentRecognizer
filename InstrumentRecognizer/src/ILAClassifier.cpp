@@ -12,32 +12,29 @@ namespace
         return res;
     }
 
-	ILADescription extractDescription(const std::vector<unsigned int>& importantFields, const DiscretizedObjectDescription& desc)
+    ILADescription extractDescription(const std::vector<unsigned int>& importantFields, const DiscretizedObjectDescription& desc)
+    {
+        ILADescription res;
+        res.reserve(importantFields.size());
+
+        for (auto f : importantFields)
+            res.push_back(std::make_pair(f, desc[f]));
+
+        return res;
+    }
+    
+    bool operator<(const ILADescription& lhs, const ILADescription& rhs)
 	{
-		ILADescription res(desc.size(), boost::none);
-
-		for (auto f : importantFields)
-			res[f] = desc[f];
-
-		return res;
-	}
-
-	bool operator<(const ILADescription& lhs, const ILADescription& rhs)
-	{
-		IR_ASSERT(lhs.size() == rhs.size(), "Compared ILADescriptions must have same sizes");
+        if (lhs.size() != rhs.size())
+            return lhs.size() < rhs.size();
 
 		for (std::size_t i = 0; i < lhs.size(); ++i)
 		{
-			if (!lhs[i].is_initialized() && rhs[i].is_initialized())
-				return true;
-
-			if (lhs[i].is_initialized() && !rhs[i].is_initialized())
-				return false;
-
-			if (lhs[i] == rhs[i])
-				continue;
-
-			return lhs[i] < rhs[i];
+			if (lhs[i].first != rhs[i].first)
+				return lhs[i].first < rhs[i].first;
+            
+            if (lhs[i].second != rhs[i].second)
+				return lhs[i].second < rhs[i].second;
 		}
 
 		return false;
@@ -130,25 +127,41 @@ void ILAClassifier::teach()
 	{
 		for (auto& cls : discretizedBase)
 		{
-			for (auto& obj : cls.second)
-				++descriptionCounts[extractDescription(usedAttributes, obj)][cls.first];
+            for (auto& obj : cls.second)
+            {
+                auto desc = extractDescription(usedAttributes, obj);
+                auto it = descriptionCounts.find(desc);
+                if(it == descriptionCounts.end())
+                    ++descriptionCounts[desc][cls.first];
+                else if (!it->second.empty())
+                {
+                    auto cnt = it->second.find(cls.first);
+                    if (cnt == it->second.end())
+                        it->second.clear();
+                    else
+                        ++(cnt->second);
+                }
+            }
 		}
 
 		for (auto& desc : descriptionCounts)
 		{
-			if (desc.second.size() == 1)
-			{
-				ClassName relevantClass = desc.second.begin()->first;
-				ILARule rule(relevantClass, desc.first);
-				rules.push_back(rule);
+			if (!desc.second.empty())
+            {
+                ClassName relevantClass = desc.second.begin()->first;
 
 				if (notYetDiscretized.count(relevantClass) == 0)
 					continue;
 
+                ILARule rule(relevantClass, desc.first);
+                bool matchedAnything = false;
 				for (auto objIter = notYetDiscretized[relevantClass].begin();;)
 				{
-					if (rule.matches(*objIter))
-						objIter = notYetDiscretized[relevantClass].erase(objIter);
+                    if (rule.matches(*objIter))
+                    {
+                        objIter = notYetDiscretized[relevantClass].erase(objIter);
+                        matchedAnything = true;
+                    }
 					else
 						++objIter;
 
@@ -156,10 +169,15 @@ void ILAClassifier::teach()
 						break;
 				}
 
+                if (matchedAnything)
+                    rules.push_back(rule);
+
 				if (notYetDiscretized[relevantClass].empty())
 					notYetDiscretized.erase(relevantClass);
 			}
-		}
+        }
+
+        descriptionCounts.clear();
 	}
 }
 

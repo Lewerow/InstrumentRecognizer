@@ -81,17 +81,23 @@ void CorrectClassifierTester::notifyFinishedTraining(Classifier* classifier)
 		repBuilder->addAccurracySingle(classifier, c.first, accurracy);
 		accurracies.push_back(accurracy);
 
-		double precision = classifiedCorrectlyTotal[c.first] / ((double)(c.second));
-		repBuilder->addPrecisionSingle(classifier, c.first, precision);
+        double precision = 0;
+        if (c.second > 0)
+		    precision = classifiedCorrectlyTotal[c.first] / ((double)(c.second));
+		
+        repBuilder->addPrecisionSingle(classifier, c.first, precision);
 		precisions.push_back(precision);
 
-		double recall = classifiedCorrectlyTotal[c.first] / ((double)(desc.at(c.first).size()));
-		repBuilder->addRecallSingle(classifier, c.first, recall);
+        double recall = 0;
+        if(desc.count(c.first) && !desc.at(c.first).empty())
+		    recall = classifiedCorrectlyTotal[c.first] / ((double)(desc.at(c.first).size()));
+		
+        repBuilder->addRecallSingle(classifier, c.first, recall);
 		recalls.push_back(recall);
 
-		double fmeasure = 2 * (precision * recall) / (precision + recall);
-		if (precision + recall < 0.000001)
-			fmeasure = 0;
+		double fmeasure = 0;;
+		if (precision + recall > 0.000001)
+            fmeasure = 2 * (precision * recall) / (precision + recall);
 
 		repBuilder->addFMeasureSingle(classifier, c.first, fmeasure);
 		fmeasures.push_back(fmeasure);

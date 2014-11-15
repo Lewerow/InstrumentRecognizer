@@ -11,10 +11,10 @@ ClassName ILARule::name() const
 bool ILARule::matches(const DiscretizedObjectDescription& desc) const
 {
 	bool matches = true;
-	IR_ASSERT(description.size() == desc.size(), "Discretized objects must be same that ones used during teaching");
 
 	for (std::size_t i = 0; i < description.size(); ++i)
-		matches = matches && (!description[i] || (description[i].get() == desc[i]));
+		matches = matches && description[i].second == desc[description[i].first];
+        //(!description[i] || (description[i].get() == desc[i]));
 
 	return matches;
 }

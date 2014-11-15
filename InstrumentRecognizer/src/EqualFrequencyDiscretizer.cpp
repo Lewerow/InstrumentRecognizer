@@ -27,7 +27,11 @@ void EqualFrequencyDiscretizer::teach()
 	{
 		if (i == nextClassFrequencyThreshold)
 		{
-			thresholds.push_back((attributeValues[i] + attributeValues[i+1]) / 2);
+            Descriptor thres = attributeValues[i];
+            if (i + 1 < attributeValues.size())
+                thres = (thres + attributeValues[i+1]) / 2;
+
+			thresholds.push_back(thres);
 			nextClassFrequencyThreshold += elemsPerClass;
 		}
 	}

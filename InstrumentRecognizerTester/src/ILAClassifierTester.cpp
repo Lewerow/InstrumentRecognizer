@@ -23,7 +23,7 @@ BOOST_AUTO_TEST_SUITE(ILA)
 
 BOOST_AUTO_TEST_CASE(ILARuleTests)
 {
-    ILARule rule(std::string("a"), { boost::none, boost::none, 2 });
+    ILARule rule(std::string("a"), { {2, 2} });
 
 	BOOST_CHECK_EQUAL(false, rule.matches({ 1, 1, 1 }));
 	BOOST_CHECK_EQUAL(true, rule.matches({ 1, 2, 2 }));
@@ -32,7 +32,7 @@ BOOST_AUTO_TEST_CASE(ILARuleTests)
 
 BOOST_AUTO_TEST_CASE(ILARuleRefinedTests)
 {
-    ILARule rule(std::string("a"), { 3, boost::none, 2, boost::none });
+    ILARule rule(std::string("a"), { {0, 3}, {2,2} });
 
     BOOST_CHECK_EQUAL(false, rule.matches({ 3, 1, 1, 3 }));
     BOOST_CHECK_EQUAL(false, rule.matches({ 1, 2, 2, 2 }));

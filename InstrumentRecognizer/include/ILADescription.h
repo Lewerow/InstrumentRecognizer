@@ -3,8 +3,6 @@
 
 #include <common_defs.h>
 
-#include <boost/optional.hpp>
-
-typedef std::vector<boost::optional<Discretized> > ILADescription;
+typedef std::vector<std::pair<unsigned int, Discretized> > ILADescription;
 
 #endif
