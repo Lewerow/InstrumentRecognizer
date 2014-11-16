@@ -57,14 +57,21 @@ BOOST_AUTO_TEST_CASE(WorksCorrectly)
 	for (auto& o : observerMocks)
 		MOCK_EXPECT(o->notifyStartedTraining).once();
 	
-	MOCK_EXPECT(classifierMock->doRun).once();
+    mock::sequence seq;
+	MOCK_EXPECT(classifierMock->doRun).once().in(seq);
+    MOCK_EXPECT(classifierMock->doStop).once().in(seq);
+    for (auto& o : observerMocks)
+        MOCK_EXPECT(o->notifyFinishedTraining).once().with(classifierMock.get());
 
-	MOCK_EXPECT(reportBuilderMock->endReportID).once().with(reportID);
+    MOCK_EXPECT(reportBuilderMock->endReportClassifier).once().with(classifierMock.get()).in(seq);
 	
 	MOCK_EXPECT(classifierDBManagerMock->addClassifier).once().with(classifierMock, boost::lexical_cast<std::string>(reportID));
 
 	MOCK_EXPECT(descriptionDBManagerMock->areFoldsRemaining).once().returns(false);
+    MOCK_EXPECT(descriptionDBManagerMock->nextCrossValidationSet).once();
 
+    MOCK_EXPECT(reportBuilderMock->summarize).once();
+    
 	overlord.teachOne();
 }
 

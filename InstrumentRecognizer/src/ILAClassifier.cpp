@@ -39,6 +39,87 @@ namespace
 
 		return false;
 	}
+
+    std::map<ILADescription, std::pair<ClassName, int> > calculateDescriptionCounts(const std::vector<std::vector<unsigned int> >& sameSizeCombinations, 
+        const DiscretizedClassDescriptionBase& discretizedBase)
+    {
+        std::map<ILADescription, std::pair<ClassName, int> > descriptionCounts;
+        for (auto& usedAttributes : sameSizeCombinations)
+        {
+            for (auto& cls : discretizedBase)
+            {
+                for (auto& obj : cls.second)
+                {
+                    auto desc = extractDescription(usedAttributes, obj);
+                    auto it = descriptionCounts.find(desc);
+                    if (it == descriptionCounts.end())
+                        descriptionCounts.insert(std::make_pair(desc, std::make_pair(cls.first, 1)));
+                    else if (!it->second.first.empty())
+                    {
+                        if (it->second.first != cls.first)
+                            it->second.first.clear();
+                        else
+                            ++(it->second.second);
+                    }
+                }
+            }
+        }
+
+        for (auto it = descriptionCounts.begin(); it != descriptionCounts.end();)
+        {
+            if (it->second.first.empty())
+                it = descriptionCounts.erase(it);
+            else
+                ++it;
+        }
+
+        return descriptionCounts;
+    }
+
+    std::map<ILADescription, std::pair<ClassName, int> > recalculateDescriptionCounts(std::map<ILADescription, std::pair<ClassName, int> >& descriptionCounts,
+        const DiscretizedClassDescriptionBase& notYetDiscretized)
+    {
+        for (auto& d : descriptionCounts)
+        {
+            d.second.second = 0;
+
+            auto cls = notYetDiscretized.find(d.second.first);
+            if (cls == notYetDiscretized.end())
+                continue;
+
+            ILARule rule(d.second.first, d.first);
+            for (auto& obj : cls->second)
+            {
+                if (rule.matches(obj))
+                    ++d.second.second;
+            }
+        }
+
+        for (auto it = descriptionCounts.begin(); it != descriptionCounts.end();)
+        {
+            if (it->second.second == 0)
+                it = descriptionCounts.erase(it);
+            else
+                ++it;
+        }
+
+        return descriptionCounts;
+    }
+
+    std::map<ClassName, ILADescription> pickMaxCombinations(std::map<ILADescription, std::pair<ClassName, int> >& allCombinations)
+    {
+        std::map<ClassName, ILADescription> maxCombinations;
+        for (auto& comb : allCombinations)
+        {
+            if (allCombinations[maxCombinations[comb.second.first]].second < comb.second.second)
+                maxCombinations[comb.second.first] = comb.first;
+        }
+
+        for (auto& comb: maxCombinations)
+            allCombinations.erase(comb.second);
+
+        return maxCombinations;
+    }
 }
 
 ILAClassifier::ILAClassifier(std::shared_ptr<DiscretizerFactory> disc) : discretizerFactory(disc)
@@ -120,65 +201,45 @@ void ILAClassifier::doStop()
 void ILAClassifier::teach()
 {
 	AttributeCombinations comb(discretizedBase.begin()->second.begin()->size());
-	std::map<ILADescription, std::map<ClassName, int> > descriptionCounts;
 
 	DiscretizedClassDescriptionBase notYetDiscretized(discretizedBase);
-    for (auto usedAttributes = comb.getNextAttributeSet(); !usedAttributes.empty() && !notYetDiscretized.empty(); usedAttributes = comb.getNextAttributeSet())
-	{
-		for (auto& cls : discretizedBase)
-		{
-            for (auto& obj : cls.second)
+    std::vector<Discretized> nextCombination;
+    while (!notYetDiscretized.empty())
+    {
+        std::vector<std::vector<Discretized> > sameSizeCombinations;
+        do
+        {
+            nextCombination = comb.getNextAttributeSet();
+            sameSizeCombinations.push_back(nextCombination);
+        } while (!nextCombination.empty() && nextCombination.size() == sameSizeCombinations[0].size());
+
+        for (auto descriptionCounts = calculateDescriptionCounts(sameSizeCombinations, discretizedBase);
+            !descriptionCounts.empty(); )
+        {
+            descriptionCounts = recalculateDescriptionCounts(descriptionCounts, notYetDiscretized);
+            if (descriptionCounts.empty())
+                break;
+
+            auto maxCombinations = pickMaxCombinations(descriptionCounts);
+            for (auto& maxComb : maxCombinations)
             {
-                auto desc = extractDescription(usedAttributes, obj);
-                auto it = descriptionCounts.find(desc);
-                if(it == descriptionCounts.end())
-                    ++descriptionCounts[desc][cls.first];
-                else if (!it->second.empty())
+                ClassName relevantClass = maxComb.first;
+                ILARule rule(relevantClass, maxComb.second);
+                for (auto objIter = notYetDiscretized[relevantClass].begin(); objIter != notYetDiscretized[relevantClass].end();)
                 {
-                    auto cnt = it->second.find(cls.first);
-                    if (cnt == it->second.end())
-                        it->second.clear();
-                    else
-                        ++(cnt->second);
-                }
-            }
-		}
-
-		for (auto& desc : descriptionCounts)
-		{
-			if (!desc.second.empty())
-            {
-                ClassName relevantClass = desc.second.begin()->first;
-
-				if (notYetDiscretized.count(relevantClass) == 0)
-					continue;
-
-                ILARule rule(relevantClass, desc.first);
-                bool matchedAnything = false;
-				for (auto objIter = notYetDiscretized[relevantClass].begin();;)
-				{
                     if (rule.matches(*objIter))
-                    {
                         objIter = notYetDiscretized[relevantClass].erase(objIter);
-                        matchedAnything = true;
-                    }
-					else
-						++objIter;
+                    else
+                        ++objIter;
+                }
 
-					if (objIter == notYetDiscretized[relevantClass].end())
-						break;
-				}
+                rules.push_back(rule);
 
-                if (matchedAnything)
-                    rules.push_back(rule);
-
-				if (notYetDiscretized[relevantClass].empty())
-					notYetDiscretized.erase(relevantClass);
-			}
+                if (notYetDiscretized[relevantClass].empty())
+                    notYetDiscretized.erase(relevantClass);
+            }
         }
-
-        descriptionCounts.clear();
-	}
+    }
 }
 
 DiscretizedObjectDescription ILAClassifier::discretizeSingleObject(const ObjectDescription& obj) const
