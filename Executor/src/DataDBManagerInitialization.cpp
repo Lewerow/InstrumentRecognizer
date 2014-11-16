@@ -14,6 +14,9 @@ namespace setup
 	DataDBManager* line_data_db_manager(const std::string& path, int classNameColumn)
 	{
 		std::ifstream str(path);
+        if (!str.is_open() || !str.good())
+            throw std::runtime_error("Failed to initialize LineDataDBManager");
+
 		return new LineDataDBManager(str, classNameColumn);
 	}
 }

@@ -2,7 +2,7 @@ Report ID: 1
 ILAClassifier
 Results for ILA Classification Algorithm
 General data
-Created on: 2014-11-03, 02:43:15
+Created on: 2014-11-16, 02:26:31
 Training time: 0 seconds
 Training iterations: 0
 Overall results
@@ -12,8 +12,8 @@ Total correctly identified: 12
 Total incorrectly identified: 3
 Mean accurracy: 0.8
 Mean recall: 0.8
-Mean precision: 0.805556
-Mean F-measure: 0.79798
+Mean precision: 0.888889
+Mean F-measure: 0.825758
 RMS: N/A
 Spread: 0.7
 
@@ -40,8 +40,8 @@ Correctly identified: 3
 Incorrectly identified: 2
 Accurracy: 0.8000
 Recall: 0.6000
-Precision: 0.7500
-F-measure: 0.6667
+Precision: 1.0000
+F-measure: 0.7500
 RMS: N/A
 Spread: 1
 Iris-virginica: 2
@@ -60,7 +60,7 @@ F-measure: 0.7273
 RMS: N/A
 Spread: 1
 Iris-virginica: 4
-Iris-versicolor: 1
+: 1
 
 Detailed classification data: 
 4.9 3 1.4 0.2 of class Iris-setosa classified as Iris-setosa
@@ -77,6 +77,6 @@ Detailed classification data:
 6.4 2.7 5.3 1.9 of class Iris-virginica classified as Iris-virginica
 7.9 3.8 6.4 2 of class Iris-virginica classified as Iris-virginica
 6.9 3.1 5.1 2.3 of class Iris-virginica classified as Iris-virginica
-5.6 2.8 4.9 2 of class Iris-virginica classified as Iris-versicolor
+5.6 2.8 4.9 2 of class Iris-virginica classified as 
 
 End of results for ILA

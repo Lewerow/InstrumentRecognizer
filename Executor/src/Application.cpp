@@ -2,6 +2,7 @@
 
 #include <boost/program_options.hpp>	
 #include <boost/optional.hpp>
+#include <boost/algorithm/string/trim.hpp>
 
 #include <memory>
 #include <vector>
@@ -246,7 +247,10 @@ namespace application
 	void classifying::setup(const boost::program_options::variables_map& vars)
 	{
 		verify_classifier_args(vars);
-		app::pimpl->factories->classifier.reset(setup::classifier_factory(vars.at("classifier_type").as<std::string>(), app::pimpl->services->random));
+        
+        std::string classifier_type = vars.at("classifier_type").as<std::string>();
+        boost::algorithm::trim(classifier_type);
+        app::pimpl->factories->classifier.reset(setup::classifier_factory(classifier_type, app::pimpl->services->random));
 		
 		app::pimpl->db_managers->description.reset(setup::description_db_manager_for_classifying(vars.at("description_dir").as<std::string>(), vars.at("fold_count").as<int>()));
 
@@ -287,7 +291,10 @@ namespace application
 		verify_all(vars);
 		
 		app::pimpl->factories->describer.reset(setup::describer_factory());
-		app::pimpl->factories->classifier.reset(setup::classifier_factory(vars.at("classifier_type").as<std::string>(), app::pimpl->services->random));
+
+        std::string classifier_type = vars.at("classifier_type").as<std::string>();
+        boost::algorithm::trim(classifier_type);
+		app::pimpl->factories->classifier.reset(setup::classifier_factory(classifier_type, app::pimpl->services->random));
 
 		if (vars.at("data_in_separate_files").as<int>() == 1)
 			app::pimpl->db_managers->data.reset(setup::file_data_db_manager(vars.at("data_dir").as<std::string>(), vars.at("data_ext").as<std::string>()));

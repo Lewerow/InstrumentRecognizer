@@ -2,7 +2,7 @@ Report ID: 1
 ILAClassifier
 Results for ILA Classification Algorithm
 General data
-Created on: 2014-11-03, 02:43:14
+Created on: 2014-11-16, 02:26:29
 Training time: 0 seconds
 Training iterations: 0
 Overall results

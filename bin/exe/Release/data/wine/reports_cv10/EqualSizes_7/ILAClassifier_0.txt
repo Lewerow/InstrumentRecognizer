@@ -2,35 +2,36 @@ Report ID: 0
 ILAClassifier
 Results for ILA Classification Algorithm
 General data
-Created on: 2014-11-03, 02:43:37
+Created on: 2014-11-16, 02:26:36
 Training time: 0 seconds
 Training iterations: 0
 Overall results
 Total training objects: 159
 Total test objects: 19
-Total correctly identified: 18
-Total incorrectly identified: 1
-Mean accurracy: 0.947368
-Mean recall: 0.933333
+Total correctly identified: 16
+Total incorrectly identified: 3
+Mean accurracy: 0.842105
+Mean recall: 0.822222
 Mean precision: 0.962963
-Mean F-measure: 0.943355
+Mean F-measure: 0.876688
 RMS: N/A
-Spread: 0.3
+Spread: 0.7
 
 Data divided into classes
 Class 1
 Mapped to number: N/A
 Training objects: 53
 Test objects: 6
-Correctly identified: 6
-Incorrectly identified: 0
-Accurracy: 0.9474
-Recall: 1.0000
+Correctly identified: 4
+Incorrectly identified: 2
+Accurracy: 0.8421
+Recall: 0.6667
 Precision: 1.0000
-F-measure: 1.0000
+F-measure: 0.8000
 RMS: N/A
-Spread: 0
-1: 6
+Spread: 1
+1: 4
+: 2
 
 Class 2
 Mapped to number: N/A
@@ -38,7 +39,7 @@ Training objects: 63
 Test objects: 8
 Correctly identified: 8
 Incorrectly identified: 0
-Accurracy: 0.9474
+Accurracy: 0.8421
 Recall: 1.0000
 Precision: 0.8889
 F-measure: 0.9412
@@ -52,7 +53,7 @@ Training objects: 43
 Test objects: 5
 Correctly identified: 4
 Incorrectly identified: 1
-Accurracy: 0.9474
+Accurracy: 0.8421
 Recall: 0.8000
 Precision: 1.0000
 F-measure: 0.8889
@@ -64,10 +65,10 @@ Spread: 1
 Detailed classification data: 
 14.23 1.71 2.43 15.6 127 2.8 3.06 0.28 2.29 5.64 1.04 3.92 1065 of class 1 classified as 1
 14.1 2.16 2.3 18 105 2.95 3.32 0.22 2.38 5.75 1.25 3.17 1510 of class 1 classified as 1
-14.06 1.63 2.28 16 126 3 3.17 0.24 2.1 5.65 1.09 3.71 780 of class 1 classified as 1
 13.73 1.5 2.7 22.5 101 3 3.25 0.29 2.38 5.7 1.19 2.71 1285 of class 1 classified as 1
-13.56 1.71 2.31 16.2 117 3.15 3.29 0.34 2.34 6.13 0.95 3.38 795 of class 1 classified as 1
 13.05 1.73 2.04 12.4 92 2.72 3.27 0.17 2.91 7.2 1.12 2.91 1150 of class 1 classified as 1
+14.06 1.63 2.28 16 126 3 3.17 0.24 2.1 5.65 1.09 3.71 780 of class 1 classified as 
+13.56 1.71 2.31 16.2 117 3.15 3.29 0.34 2.34 6.13 0.95 3.38 795 of class 1 classified as 
 12.37 0.94 1.36 10.6 88 1.98 0.57 0.28 0.42 1.95 1.05 1.82 520 of class 2 classified as 2
 12.21 1.19 1.75 16.8 151 1.85 1.28 0.14 2.5 2.85 1.28 3.07 718 of class 2 classified as 2
 12.7 3.87 2.4 23 101 2.83 2.55 0.43 1.95 2.57 1.19 3.13 463 of class 2 classified as 2

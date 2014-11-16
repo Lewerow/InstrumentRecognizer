@@ -2,35 +2,36 @@ Report ID: 2
 ILAClassifier
 Results for ILA Classification Algorithm
 General data
-Created on: 2014-11-03, 02:43:14
+Created on: 2014-11-16, 02:26:29
 Training time: 0 seconds
 Training iterations: 0
 Overall results
 Total training objects: 102
 Total test objects: 48
-Total correctly identified: 40
-Total incorrectly identified: 8
-Mean accurracy: 0.833333
-Mean recall: 0.833333
-Mean precision: 0.837117
-Mean F-measure: 0.827994
+Total correctly identified: 37
+Total incorrectly identified: 11
+Mean accurracy: 0.770833
+Mean recall: 0.770833
+Mean precision: 0.945887
+Mean F-measure: 0.846914
 RMS: N/A
-Spread: 1.0
+Spread: 1.7
 
 Data divided into classes
 Class Iris-setosa
 Mapped to number: N/A
 Training objects: 34
 Test objects: 16
-Correctly identified: 16
-Incorrectly identified: 0
-Accurracy: 0.8333
-Recall: 1.0000
-Precision: 0.9412
-F-measure: 0.9697
+Correctly identified: 14
+Incorrectly identified: 2
+Accurracy: 0.7708
+Recall: 0.8750
+Precision: 1.0000
+F-measure: 0.9333
 RMS: N/A
-Spread: 0
-Iris-setosa: 16
+Spread: 1
+Iris-setosa: 14
+: 2
 
 Class Iris-versicolor
 Mapped to number: N/A
@@ -38,30 +39,31 @@ Training objects: 34
 Test objects: 16
 Correctly identified: 10
 Incorrectly identified: 6
-Accurracy: 0.8333
+Accurracy: 0.7708
 Recall: 0.6250
-Precision: 0.8333
-F-measure: 0.7143
+Precision: 0.9091
+F-measure: 0.7407
 RMS: N/A
 Spread: 2
-Iris-virginica: 5
+: 5
 Iris-versicolor: 10
-Iris-setosa: 1
+Iris-virginica: 1
 
 Class Iris-virginica
 Mapped to number: N/A
 Training objects: 34
 Test objects: 16
-Correctly identified: 14
-Incorrectly identified: 2
-Accurracy: 0.8333
-Recall: 0.8750
-Precision: 0.7368
-F-measure: 0.8000
+Correctly identified: 13
+Incorrectly identified: 3
+Accurracy: 0.7708
+Recall: 0.8125
+Precision: 0.9286
+F-measure: 0.8667
 RMS: N/A
-Spread: 1
-Iris-virginica: 14
-Iris-versicolor: 2
+Spread: 2
+Iris-virginica: 13
+Iris-versicolor: 1
+: 2
 
 Detailed classification data: 
 4.7 3.2 1.3 0.2 of class Iris-setosa classified as Iris-setosa
@@ -71,31 +73,31 @@ Detailed classification data:
 5.8 4 1.2 0.2 of class Iris-setosa classified as Iris-setosa
 5.1 3.5 1.4 0.3 of class Iris-setosa classified as Iris-setosa
 5.4 3.4 1.7 0.2 of class Iris-setosa classified as Iris-setosa
-5.1 3.3 1.7 0.5 of class Iris-setosa classified as Iris-setosa
 5 3.4 1.6 0.4 of class Iris-setosa classified as Iris-setosa
 4.7 3.2 1.6 0.2 of class Iris-setosa classified as Iris-setosa
 5.2 4.1 1.5 0.1 of class Iris-setosa classified as Iris-setosa
 5 3.2 1.2 0.2 of class Iris-setosa classified as Iris-setosa
 4.4 3 1.3 0.2 of class Iris-setosa classified as Iris-setosa
 4.5 2.3 1.3 0.3 of class Iris-setosa classified as Iris-setosa
-5.1 3.8 1.9 0.4 of class Iris-setosa classified as Iris-setosa
 4.6 3.2 1.4 0.2 of class Iris-setosa classified as Iris-setosa
-6.9 3.1 4.9 1.5 of class Iris-versicolor classified as Iris-virginica
-5.6 2.9 3.6 1.3 of class Iris-versicolor classified as Iris-virginica
-5.9 3.2 4.8 1.8 of class Iris-versicolor classified as Iris-virginica
-6.8 2.8 4.8 1.4 of class Iris-versicolor classified as Iris-virginica
-6.1 3 4.6 1.4 of class Iris-versicolor classified as Iris-virginica
+5.1 3.3 1.7 0.5 of class Iris-setosa classified as 
+5.1 3.8 1.9 0.4 of class Iris-setosa classified as 
+5.6 2.9 3.6 1.3 of class Iris-versicolor classified as 
+5.9 3.2 4.8 1.8 of class Iris-versicolor classified as 
+6.8 2.8 4.8 1.4 of class Iris-versicolor classified as 
+5.7 2.6 3.5 1 of class Iris-versicolor classified as 
+6 3.4 4.5 1.6 of class Iris-versicolor classified as 
+6.9 3.1 4.9 1.5 of class Iris-versicolor classified as Iris-versicolor
 5.7 2.8 4.5 1.3 of class Iris-versicolor classified as Iris-versicolor
 6.6 2.9 4.6 1.3 of class Iris-versicolor classified as Iris-versicolor
 5.9 3 4.2 1.5 of class Iris-versicolor classified as Iris-versicolor
 5.8 2.7 4.1 1 of class Iris-versicolor classified as Iris-versicolor
 6.1 2.8 4.7 1.2 of class Iris-versicolor classified as Iris-versicolor
 5.8 2.7 3.9 1.2 of class Iris-versicolor classified as Iris-versicolor
-6 3.4 4.5 1.6 of class Iris-versicolor classified as Iris-versicolor
 5.6 3 4.1 1.3 of class Iris-versicolor classified as Iris-versicolor
 5.6 2.7 4.2 1.3 of class Iris-versicolor classified as Iris-versicolor
 6.2 2.9 4.3 1.3 of class Iris-versicolor classified as Iris-versicolor
-5.7 2.6 3.5 1 of class Iris-versicolor classified as Iris-setosa
+6.1 3 4.6 1.4 of class Iris-versicolor classified as Iris-virginica
 7.1 3 5.9 2.1 of class Iris-virginica classified as Iris-virginica
 7.6 3 6.6 2.1 of class Iris-virginica classified as Iris-virginica
 6.7 2.5 5.8 1.8 of class Iris-virginica classified as Iris-virginica
@@ -106,11 +108,11 @@ Detailed classification data:
 7.2 3 5.8 1.6 of class Iris-virginica classified as Iris-virginica
 6.4 2.8 5.6 2.2 of class Iris-virginica classified as Iris-virginica
 7.7 3 6.1 2.3 of class Iris-virginica classified as Iris-virginica
-6 3 4.8 1.8 of class Iris-virginica classified as Iris-virginica
 6.9 3.1 5.1 2.3 of class Iris-virginica classified as Iris-virginica
 6.7 3.3 5.7 2.5 of class Iris-virginica classified as Iris-virginica
 6.5 3 5.2 2 of class Iris-virginica classified as Iris-virginica
-6.3 2.7 4.9 1.8 of class Iris-virginica classified as Iris-versicolor
 6.2 2.8 4.8 1.8 of class Iris-virginica classified as Iris-versicolor
+6.3 2.7 4.9 1.8 of class Iris-virginica classified as 
+6 3 4.8 1.8 of class Iris-virginica classified as 
 
 End of results for ILA

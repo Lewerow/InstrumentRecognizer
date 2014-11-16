@@ -12,8 +12,8 @@ Total correctly identified: 13
 Total incorrectly identified: 1
 Mean accurracy: 0.9
 Mean recall: 0.9
-Mean precision: 0.908254
-Mean F-measure: 0.898838
+Mean precision: 0.957143
+Mean F-measure: 0.918603
 RMS: N/A
 Spread: 0.4
 

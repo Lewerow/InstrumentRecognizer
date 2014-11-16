@@ -2,18 +2,18 @@ Report ID: 0
 ILAClassifier
 Results for ILA Classification Algorithm
 General data
-Created on: 2014-11-03, 02:43:22
+Created on: 2014-11-16, 02:26:34
 Training time: 0 seconds
 Training iterations: 0
 Overall results
 Total training objects: 141
 Total test objects: 37
-Total correctly identified: 36
-Total incorrectly identified: 1
-Mean accurracy: 0.972973
-Mean recall: 0.972222
-Mean precision: 0.979167
-Mean F-measure: 0.974755
+Total correctly identified: 33
+Total incorrectly identified: 4
+Mean accurracy: 0.891892
+Mean recall: 0.888889
+Mean precision: 1
+Mean F-measure: 0.933333
 RMS: N/A
 Spread: 0.3
 
@@ -22,16 +22,16 @@ Class 1
 Mapped to number: N/A
 Training objects: 47
 Test objects: 12
-Correctly identified: 11
-Incorrectly identified: 1
-Accurracy: 0.9730
-Recall: 0.9167
+Correctly identified: 8
+Incorrectly identified: 4
+Accurracy: 0.8919
+Recall: 0.6667
 Precision: 1.0000
-F-measure: 0.9565
+F-measure: 0.8000
 RMS: N/A
 Spread: 1
-1: 11
-2: 1
+: 4
+1: 8
 
 Class 2
 Mapped to number: N/A
@@ -39,10 +39,10 @@ Training objects: 56
 Test objects: 15
 Correctly identified: 15
 Incorrectly identified: 0
-Accurracy: 0.9730
+Accurracy: 0.8919
 Recall: 1.0000
-Precision: 0.9375
-F-measure: 0.9677
+Precision: 1.0000
+F-measure: 1.0000
 RMS: N/A
 Spread: 0
 2: 15
@@ -53,7 +53,7 @@ Training objects: 38
 Test objects: 10
 Correctly identified: 10
 Incorrectly identified: 0
-Accurracy: 0.9730
+Accurracy: 0.8919
 Recall: 1.0000
 Precision: 1.0000
 F-measure: 1.0000
@@ -62,18 +62,18 @@ Spread: 0
 3: 10
 
 Detailed classification data: 
-14.23 1.71 2.43 15.6 127 2.8 3.06 0.28 2.29 5.64 1.04 3.92 1065 of class 1 classified as 1
+14.23 1.71 2.43 15.6 127 2.8 3.06 0.28 2.29 5.64 1.04 3.92 1065 of class 1 classified as 
+14.06 1.63 2.28 16 126 3 3.17 0.24 2.1 5.65 1.09 3.71 780 of class 1 classified as 
+13.05 2.05 3.22 25 124 2.63 2.68 0.47 1.92 3.58 1.13 3.2 830 of class 1 classified as 
+14.21 4.04 2.44 18.9 111 2.85 2.65 0.3 1.25 5.24 0.87 3.33 1080 of class 1 classified as 
 14.2 1.76 2.45 15.2 112 3.27 3.39 0.34 1.97 6.75 1.05 2.85 1450 of class 1 classified as 1
 14.1 2.16 2.3 18 105 2.95 3.32 0.22 2.38 5.75 1.25 3.17 1510 of class 1 classified as 1
 13.63 1.81 2.7 17.2 112 2.85 2.91 0.3 1.46 7.3 1.28 2.88 1310 of class 1 classified as 1
-14.06 1.63 2.28 16 126 3 3.17 0.24 2.1 5.65 1.09 3.71 780 of class 1 classified as 1
 13.73 1.5 2.7 22.5 101 3 3.25 0.29 2.38 5.7 1.19 2.71 1285 of class 1 classified as 1
 13.48 1.81 2.41 20.5 100 2.7 2.98 0.26 1.86 5.1 1.04 3.47 920 of class 1 classified as 1
 13.56 1.71 2.31 16.2 117 3.15 3.29 0.34 2.34 6.13 0.95 3.38 795 of class 1 classified as 1
-14.21 4.04 2.44 18.9 111 2.85 2.65 0.3 1.25 5.24 0.87 3.33 1080 of class 1 classified as 1
 13.05 1.73 2.04 12.4 92 2.72 3.27 0.17 2.91 7.2 1.12 2.91 1150 of class 1 classified as 1
 13.56 1.73 2.46 20.5 116 2.96 2.78 0.2 2.45 6.25 0.98 3.03 1120 of class 1 classified as 1
-13.05 2.05 3.22 25 124 2.63 2.68 0.47 1.92 3.58 1.13 3.2 830 of class 1 classified as 2
 12.37 0.94 1.36 10.6 88 1.98 0.57 0.28 0.42 1.95 1.05 1.82 520 of class 2 classified as 2
 12.17 1.45 2.53 19 104 1.89 1.75 0.45 1.03 2.95 1.45 2.23 355 of class 2 classified as 2
 12.21 1.19 1.75 16.8 151 1.85 1.28 0.14 2.5 2.85 1.28 3.07 718 of class 2 classified as 2

@@ -10,11 +10,11 @@ Total training objects: 135
 Total test objects: 15
 Total correctly identified: 12
 Total incorrectly identified: 2
-Mean accurracy: 0.826667
-Mean recall: 0.826667
-Mean precision: 0.948333
-Mean F-measure: 0.864772
+Mean accurracy: 0.813333
+Mean recall: 0.813333
+Mean precision: 0.958333
+Mean F-measure: 0.862169
 RMS: N/A
-Spread: 0.7
+Spread: 0.8
 
 

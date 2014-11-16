@@ -3,18 +3,18 @@ Summary
 
 General data
 Created on: N/A
-Training time: 86 seconds
+Training time: 0 seconds
 Training iterations: N/A
 Overall results
 Total training objects: 192
 Total test objects: 21
 Total correctly identified: 8
 Total incorrectly identified: 12
-Mean accurracy: 0.417338
-Mean recall: 0.538274
-Mean precision: 0.532816
-Mean F-measure: 0.501805
+Mean accurracy: 0.41714
+Mean recall: 0.562897
+Mean precision: 0.648179
+Mean F-measure: 0.567271
 RMS: N/A
-Spread: 1.4
+Spread: 1.3
 
 

@@ -2,52 +2,53 @@ Report ID: 1
 ILAClassifier
 Results for ILA Classification Algorithm
 General data
-Created on: 2014-11-03, 02:43:16
+Created on: 2014-11-16, 02:26:32
 Training time: 0 seconds
 Training iterations: 0
 Overall results
 Total training objects: 90
 Total test objects: 88
-Total correctly identified: 78
-Total incorrectly identified: 10
-Mean accurracy: 0.886364
-Mean recall: 0.88139
-Mean precision: 0.897013
-Mean F-measure: 0.887384
+Total correctly identified: 76
+Total incorrectly identified: 12
+Mean accurracy: 0.863636
+Mean recall: 0.854461
+Mean precision: 0.934127
+Mean F-measure: 0.8861
 RMS: N/A
-Spread: 1.3
+Spread: 1.7
 
 Data divided into classes
 Class 1
 Mapped to number: N/A
 Training objects: 30
 Test objects: 29
-Correctly identified: 26
-Incorrectly identified: 3
-Accurracy: 0.8864
-Recall: 0.8966
-Precision: 0.8966
-F-measure: 0.8966
+Correctly identified: 22
+Incorrectly identified: 7
+Accurracy: 0.8636
+Recall: 0.7586
+Precision: 1.0000
+F-measure: 0.8627
 RMS: N/A
-Spread: 2
-1: 26
+Spread: 3
+1: 22
 2: 2
+: 4
 3: 1
 
 Class 2
 Mapped to number: N/A
 Training objects: 36
 Test objects: 35
-Correctly identified: 32
-Incorrectly identified: 3
-Accurracy: 0.8864
-Recall: 0.9143
-Precision: 0.8421
-F-measure: 0.8767
+Correctly identified: 34
+Incorrectly identified: 1
+Accurracy: 0.8636
+Recall: 0.9714
+Precision: 0.8500
+F-measure: 0.9067
 RMS: N/A
 Spread: 1
-1: 3
-2: 32
+: 1
+2: 34
 
 Class 3
 Mapped to number: N/A
@@ -55,7 +56,7 @@ Training objects: 24
 Test objects: 24
 Correctly identified: 20
 Incorrectly identified: 4
-Accurracy: 0.8864
+Accurracy: 0.8636
 Recall: 0.8333
 Precision: 0.9524
 F-measure: 0.8889
@@ -76,30 +77,30 @@ Detailed classification data:
 13.83 1.57 2.62 20 115 2.95 3.4 0.4 1.72 6.6 1.13 2.57 1130 of class 1 classified as 1
 13.64 3.1 2.56 15.2 116 2.7 3.03 0.17 1.66 5.1 0.96 3.36 845 of class 1 classified as 1
 12.93 3.8 2.65 18.6 102 2.41 2.41 0.25 1.98 4.5 1.03 3.52 770 of class 1 classified as 1
-12.85 1.6 2.52 17.8 95 2.48 2.37 0.26 1.46 3.93 1.09 3.63 1015 of class 1 classified as 1
 13.05 2.05 3.22 25 124 2.63 2.68 0.47 1.92 3.58 1.13 3.2 830 of class 1 classified as 1
 13.3 1.72 2.14 17 94 2.4 2.19 0.27 1.35 3.95 1.02 2.77 1285 of class 1 classified as 1
 14.02 1.68 2.21 16 96 2.65 2.33 0.26 1.98 4.7 1.04 3.59 1035 of class 1 classified as 1
 13.58 1.66 2.36 19.1 106 2.86 3.19 0.22 1.95 6.9 1.09 2.88 1515 of class 1 classified as 1
-13.48 1.81 2.41 20.5 100 2.7 2.98 0.26 1.86 5.1 1.04 3.47 920 of class 1 classified as 1
-13.05 1.65 2.55 18 98 2.45 2.43 0.29 1.44 4.25 1.12 2.51 1105 of class 1 classified as 1
+13.76 1.53 2.7 19.5 132 2.95 2.74 0.5 1.35 5.4 1.25 3 1235 of class 1 classified as 1
 14.22 3.99 2.51 13.2 128 3 3.04 0.2 2.08 5.1 0.89 3.53 760 of class 1 classified as 1
-13.41 3.84 2.12 18.8 90 2.45 2.68 0.27 1.48 4.28 0.91 3 1035 of class 1 classified as 1
 13.9 1.68 2.12 16 101 3.1 3.39 0.21 2.14 6.1 0.91 3.33 985 of class 1 classified as 1
 13.94 1.73 2.27 17.4 108 2.88 3.54 0.32 2.08 8.9 1.12 3.1 1260 of class 1 classified as 1
 13.83 1.65 2.6 17.2 94 2.45 2.99 0.22 2.29 5.6 1.24 3.37 1265 of class 1 classified as 1
 13.77 1.9 2.68 17.1 115 3 2.79 0.39 1.68 6.3 1.13 2.93 1375 of class 1 classified as 1
-13.56 1.73 2.46 20.5 116 2.96 2.78 0.2 2.45 6.25 0.98 3.03 1120 of class 1 classified as 1
 13.29 1.97 2.68 16.8 102 3 3.23 0.31 1.66 6 1.07 2.84 1270 of class 1 classified as 1
-13.76 1.53 2.7 19.5 132 2.95 2.74 0.5 1.35 5.4 1.25 3 1235 of class 1 classified as 2
+13.41 3.84 2.12 18.8 90 2.45 2.68 0.27 1.48 4.28 0.91 3 1035 of class 1 classified as 2
 13.24 3.98 2.29 17.5 103 2.64 2.63 0.32 1.66 4.36 0.82 3 680 of class 1 classified as 2
+12.85 1.6 2.52 17.8 95 2.48 2.37 0.26 1.46 3.93 1.09 3.63 1015 of class 1 classified as 
+13.48 1.81 2.41 20.5 100 2.7 2.98 0.26 1.86 5.1 1.04 3.47 920 of class 1 classified as 
+13.05 1.65 2.55 18 98 2.45 2.43 0.29 1.44 4.25 1.12 2.51 1105 of class 1 classified as 
+13.56 1.73 2.46 20.5 116 2.96 2.78 0.2 2.45 6.25 0.98 3.03 1120 of class 1 classified as 
 14.21 4.04 2.44 18.9 111 2.85 2.65 0.3 1.25 5.24 0.87 3.33 1080 of class 1 classified as 3
-12.33 1.1 2.28 16 101 2.05 1.09 0.63 0.41 3.27 1.25 1.67 680 of class 2 classified as 1
-13.34 0.94 2.36 17 110 2.53 1.3 0.55 0.42 3.17 1.02 1.93 750 of class 2 classified as 1
-12.37 1.07 2.1 18.5 88 3.52 3.75 0.24 1.95 4.5 1.04 2.77 660 of class 2 classified as 1
+12.69 1.53 2.26 20.7 80 1.38 1.46 0.58 1.62 3.05 0.96 2.06 495 of class 2 classified as 
+12.33 1.1 2.28 16 101 2.05 1.09 0.63 0.41 3.27 1.25 1.67 680 of class 2 classified as 2
 13.67 1.25 1.92 18 94 2.1 1.79 0.32 0.73 3.8 1.23 2.46 630 of class 2 classified as 2
 12.17 1.45 2.53 19 104 1.89 1.75 0.45 1.03 2.95 1.45 2.23 355 of class 2 classified as 2
 13.11 1.01 1.7 15 78 2.98 3.18 0.26 2.28 5.3 1.12 3.18 502 of class 2 classified as 2
+13.34 0.94 2.36 17 110 2.53 1.3 0.55 0.42 3.17 1.02 1.93 750 of class 2 classified as 2
 12.29 1.61 2.21 20.4 103 1.1 1.02 0.37 1.46 3.05 0.906 1.82 870 of class 2 classified as 2
 13.49 1.66 2.24 24 87 1.88 1.84 0.27 1.03 3.74 0.98 2.78 472 of class 2 classified as 2
 11.96 1.09 2.3 21 101 3.38 2.14 0.13 1.65 3.21 0.99 3.13 886 of class 2 classified as 2
@@ -111,9 +112,9 @@ Detailed classification data:
 12.16 1.61 2.31 22.8 90 1.78 1.69 0.43 1.56 2.45 1.33 2.26 495 of class 2 classified as 2
 11.64 2.06 2.46 21.6 84 1.95 1.69 0.48 1.35 2.8 1 2.75 680 of class 2 classified as 2
 12.08 1.83 2.32 18.5 81 1.6 1.5 0.52 1.64 2.4 1.08 2.27 480 of class 2 classified as 2
-12.69 1.53 2.26 20.7 80 1.38 1.46 0.58 1.62 3.05 0.96 2.06 495 of class 2 classified as 2
 11.62 1.99 2.28 18 98 3.02 2.26 0.17 1.35 3.25 1.16 2.96 345 of class 2 classified as 2
 11.81 2.12 2.74 21.5 134 1.6 0.99 0.14 1.56 2.5 0.95 2.26 625 of class 2 classified as 2
+12.37 1.07 2.1 18.5 88 3.52 3.75 0.24 1.95 4.5 1.04 2.77 660 of class 2 classified as 2
 12.08 2.08 1.7 17.5 97 2.23 2.17 0.26 1.4 3.3 1.27 2.96 710 of class 2 classified as 2
 12.34 2.45 2.46 21 98 2.56 2.11 0.34 1.31 2.8 0.8 3.38 438 of class 2 classified as 2
 12.51 1.73 1.98 20.5 85 2.2 1.92 0.32 1.48 2.94 1.04 3.57 672 of class 2 classified as 2

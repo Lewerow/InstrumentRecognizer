@@ -225,6 +225,7 @@ void ILAClassifier::teach()
             {
                 ClassName relevantClass = maxComb.first;
                 ILARule rule(relevantClass, maxComb.second);
+
                 for (auto objIter = notYetDiscretized[relevantClass].begin(); objIter != notYetDiscretized[relevantClass].end();)
                 {
                     if (rule.matches(*objIter))
@@ -239,6 +240,9 @@ void ILAClassifier::teach()
                     notYetDiscretized.erase(relevantClass);
             }
         }
+
+        if (nextCombination.empty())
+            break;   
     }
 }
 

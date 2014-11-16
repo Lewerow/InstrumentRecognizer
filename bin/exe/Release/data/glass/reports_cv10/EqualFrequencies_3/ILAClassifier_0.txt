@@ -2,20 +2,20 @@ Report ID: 0
 ILAClassifier
 Results for ILA Classification Algorithm
 General data
-Created on: 2014-11-03, 02:52:22
-Training time: 3 seconds
+Created on: 2014-11-16, 02:26:46
+Training time: 0 seconds
 Training iterations: 0
 Overall results
 Total training objects: 191
 Total test objects: 23
-Total correctly identified: 15
-Total incorrectly identified: 8
-Mean accurracy: 0.652174
-Mean recall: 0.65873
-Mean precision: 0.833333
-Mean F-measure: 0.7
+Total correctly identified: 16
+Total incorrectly identified: 7
+Mean accurracy: 0.695652
+Mean recall: 0.742063
+Mean precision: 0.935897
+Mean F-measure: 0.778836
 RMS: N/A
-Spread: 0.8
+Spread: 0.7
 
 Data divided into classes
 Class 1
@@ -24,10 +24,10 @@ Training objects: 63
 Test objects: 7
 Correctly identified: 2
 Incorrectly identified: 5
-Accurracy: 0.6522
+Accurracy: 0.6957
 Recall: 0.2857
-Precision: 0.6667
-F-measure: 0.4000
+Precision: 1.0000
+F-measure: 0.4444
 RMS: N/A
 Spread: 2
 : 2
@@ -40,10 +40,10 @@ Training objects: 68
 Test objects: 8
 Correctly identified: 8
 Incorrectly identified: 0
-Accurracy: 0.6522
+Accurracy: 0.6957
 Recall: 1.0000
-Precision: 0.6667
-F-measure: 0.8000
+Precision: 0.6154
+F-measure: 0.7619
 RMS: N/A
 Spread: 0
 2: 8
@@ -52,16 +52,15 @@ Class 3
 Mapped to number: N/A
 Training objects: 15
 Test objects: 2
-Correctly identified: 1
-Incorrectly identified: 1
-Accurracy: 0.6522
-Recall: 0.5000
+Correctly identified: 2
+Incorrectly identified: 0
+Accurracy: 0.6957
+Recall: 1.0000
 Precision: 1.0000
-F-measure: 0.6667
+F-measure: 1.0000
 RMS: N/A
-Spread: 1
-7: 1
-3: 1
+Spread: 0
+3: 2
 
 Class 5
 Mapped to number: N/A
@@ -69,14 +68,14 @@ Training objects: 11
 Test objects: 2
 Correctly identified: 1
 Incorrectly identified: 1
-Accurracy: 0.6522
+Accurracy: 0.6957
 Recall: 0.5000
 Precision: 1.0000
 F-measure: 0.6667
 RMS: N/A
 Spread: 1
+2: 1
 5: 1
-1: 1
 
 Class 6
 Mapped to number: N/A
@@ -84,7 +83,7 @@ Training objects: 8
 Test objects: 1
 Correctly identified: 1
 Incorrectly identified: 0
-Accurracy: 0.6522
+Accurracy: 0.6957
 Recall: 1.0000
 Precision: 1.0000
 F-measure: 1.0000
@@ -98,10 +97,10 @@ Training objects: 26
 Test objects: 3
 Correctly identified: 2
 Incorrectly identified: 1
-Accurracy: 0.6522
+Accurracy: 0.6957
 Recall: 0.6667
-Precision: 0.6667
-F-measure: 0.6667
+Precision: 1.0000
+F-measure: 0.8000
 RMS: N/A
 Spread: 1
 2: 1
@@ -123,10 +122,10 @@ Detailed classification data:
 1.51844 13.25 3.76 1.32 72.4 0.58 8.42 0 0 of class 2 classified as 2
 1.52177 13.75 1.01 1.36 72.19 0.33 11.14 0 0 of class 2 classified as 2
 1.5169 13.33 3.54 1.61 72.54 0.68 8.11 0 0 of class 2 classified as 2
-1.51769 13.65 3.66 1.11 72.77 0.11 8.6 0 0 of class 3 classified as 7
+1.51769 13.65 3.66 1.11 72.77 0.11 8.6 0 0 of class 3 classified as 3
 1.51655 13.41 3.39 1.28 72.64 0.52 8.65 0 0 of class 3 classified as 3
-1.51514 14.01 2.68 3.5 69.89 1.68 5.87 2.2 0 of class 5 classified as 5
-1.52043 13.38 0 1.4 72.25 0.33 12.5 0 0 of class 5 classified as 1
+1.51514 14.01 2.68 3.5 69.89 1.68 5.87 2.2 0 of class 5 classified as 2
+1.52043 13.38 0 1.4 72.25 0.33 12.5 0 0 of class 5 classified as 5
 1.51905 14 2.39 1.56 72.37 0 9.57 0 0 of class 6 classified as 6
 1.51131 13.69 3.2 1.81 72.81 1.76 5.43 1.19 0 of class 7 classified as 2
 1.51545 14.14 0 2.68 73.39 0.08 9.07 0.61 0.05 of class 7 classified as 7

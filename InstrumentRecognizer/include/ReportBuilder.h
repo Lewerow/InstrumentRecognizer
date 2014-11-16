@@ -26,7 +26,7 @@ public:
 	virtual void addHeader(Classifier*, const std::string&);
 	virtual void addFooter(Classifier*, const std::string&);
 	virtual void addDate(Classifier*, std::chrono::time_point<std::chrono::system_clock>);
-	virtual void addTrainingDuration(Classifier*, std::chrono::system_clock::duration);
+	virtual void addTrainingDuration(Classifier*, std::chrono::steady_clock::duration);
 	virtual void addNumberOfIterations(Classifier*, unsigned int);
 	virtual void addClassifiedCorrectSingle(Classifier*, const ClassName&, unsigned int);
 	virtual void addClassifiedIncorrectSingle(Classifier*, const ClassName&, unsigned int);

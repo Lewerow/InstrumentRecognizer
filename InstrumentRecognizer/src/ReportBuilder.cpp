@@ -470,7 +470,7 @@ void TextReportBuilder::Printer::printHeader(std::ostream& str, Report::ID id, s
 
 	str << "Training time: " ;
 	if(rs->general.trainingDuration)
-		str << std::chrono::duration_cast<std::chrono::seconds>(rs->general.trainingDuration.get()).count() << " seconds" << std::endl;
+		str << std::chrono::duration_cast<std::chrono::milliseconds>(rs->general.trainingDuration.get()).count() << " milliseconds" << std::endl;
 	else
 		str << "N/A" << std::endl;
 	
