@@ -1,17 +1,10 @@
 #include <ILAClassifier.h>
 #include <ClassifierVisitor.h>
-#include <EqualSizeDiscretizer.h>
 #include <AttributeCombinations.h>
+#include <Discretizer.h>
 
 namespace
 {
-    ClassifierResults singleResultClass(const ClassName& name)
-    {
-        ClassifierResults res;
-        res.emplace(name, 1);
-        return res;
-    }
-
     ILADescription extractDescription(const std::vector<unsigned int>& importantFields, const DiscretizedObjectDescription& desc)
     {
         ILADescription res;

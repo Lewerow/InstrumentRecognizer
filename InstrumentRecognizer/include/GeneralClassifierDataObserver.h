@@ -10,6 +10,7 @@ public:
 
 	virtual void visit(Classifier*);
 	virtual void visit(ILAClassifier*);
+	virtual void visit(NaiveBayesClassifier*);
 	virtual void visit(LinearClassifier*);
 	virtual void visit(RandomClassifier*);
 	virtual void visit(NearestNeighborClassifier*);

@@ -10,9 +10,6 @@ void EqualFrequencyDiscretizer::teach()
 	std::vector<Descriptor> attributeValues;
 	attributeValues.reserve(mBase.size() * mBase.begin()->second.size());
 
-	Descriptor min = mBase.begin()->second[0][mAttribute];
-	Descriptor max = mBase.begin()->second[0][mAttribute];
-
 	for (auto& k : mBase)
 	{
 		for (auto& objects : k.second)
@@ -22,17 +19,18 @@ void EqualFrequencyDiscretizer::teach()
 	std::sort(attributeValues.begin(), attributeValues.end());
 
 	std::size_t elemsPerClass = attributeValues.size() / mParts;
+	elemsPerClass = (elemsPerClass > 0) ? elemsPerClass : 1;
 	std::size_t nextClassFrequencyThreshold = elemsPerClass;
 	for (std::size_t i = 0; i < attributeValues.size(); ++i)
 	{
-		if (i == nextClassFrequencyThreshold)
+		if (i >= nextClassFrequencyThreshold && (thresholds.empty() || attributeValues[i] > thresholds.back()))
 		{
             Descriptor thres = attributeValues[i];
             if (i + 1 < attributeValues.size())
                 thres = (thres + attributeValues[i+1]) / 2;
 
 			thresholds.push_back(thres);
-			nextClassFrequencyThreshold += elemsPerClass;
+			nextClassFrequencyThreshold = i + elemsPerClass;
 		}
 	}
 }

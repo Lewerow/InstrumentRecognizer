@@ -4,6 +4,7 @@ class RandomClassifier;
 class NearestNeighborClassifier;
 class LASSOClassifier;
 class ILAClassifier;
+class NaiveBayesClassifier;
 
 class ClassifierVisitor
 {
@@ -14,4 +15,5 @@ public:
 	virtual void visit(LASSOClassifier*) = 0;
 	virtual void visit(RandomClassifier*) = 0;
 	virtual void visit(NearestNeighborClassifier*) = 0;
+	virtual void visit(NaiveBayesClassifier*) = 0;
 };

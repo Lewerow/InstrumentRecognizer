@@ -1,5 +1,6 @@
 #include <boost/test/auto_unit_test.hpp>
 
+#include <CompositeDiscretizer.h>
 #include <EqualSizeDiscretizer.h>
 #include <EqualFrequencyDiscretizer.h>
 
@@ -40,6 +41,14 @@ BOOST_AUTO_TEST_CASE(EqualSizeDiscretizerDiscretizesToEqualSizes)
 	BOOST_CHECK_EQUAL(attr_0.discretize(4.5), 2);
 	BOOST_CHECK_EQUAL(attr_0.discretize(5.9), 2);
 	BOOST_CHECK_EQUAL(attr_0.discretize(59), 2);
+
+	EqualSizeDiscretizer attr_1(10, b, 1);
+	attr_1.teach();
+
+	BOOST_CHECK_EQUAL(0, attr_1.discretize(1));
+	BOOST_CHECK_EQUAL(2, attr_1.discretize(6));
+	BOOST_CHECK_EQUAL(4, attr_1.discretize(10));
+	BOOST_CHECK_EQUAL(9, attr_1.discretize(200));																																																														BOOST_CHECK_EQUAL(0, attr_1.discretize(1));
 }
 
 BOOST_AUTO_TEST_CASE(EqualFrequencyDiscretizerDiscretizesToEqualFrequencies)
@@ -61,6 +70,18 @@ BOOST_AUTO_TEST_CASE(EqualFrequencyDiscretizerDiscretizesToEqualFrequencies)
 	BOOST_CHECK_EQUAL(attr_0.discretize(5.55), 2);
 	BOOST_CHECK_EQUAL(attr_0.discretize(5.9), 2);
 	BOOST_CHECK_EQUAL(attr_0.discretize(59), 2);
+	
+	EqualFrequencyDiscretizer attr_1(10, b, 1);
+	attr_1.teach();
+
+	BOOST_CHECK_EQUAL(0, attr_1.discretize(1));
+	BOOST_CHECK_EQUAL(1, attr_1.discretize(2));
+	BOOST_CHECK_EQUAL(4, attr_1.discretize(10));
+	BOOST_CHECK_EQUAL(7, attr_1.discretize(200));
+}
+
+BOOST_AUTO_TEST_CASE(CompositeDistretizerCanDistretizeInMultipleWays)
+{
 }
 
 BOOST_AUTO_TEST_SUITE_END()
