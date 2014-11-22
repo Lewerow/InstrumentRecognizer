@@ -1,3 +1,5 @@
+#ifdef BUILD_WITH_SHARK
+
 #include <boost/test/auto_unit_test.hpp>
 #include <boost/mpl/list.hpp>
 
@@ -108,3 +110,4 @@ BOOST_FIXTURE_TEST_CASE_TEMPLATE(BasicValidation, ClassifierType, ClassifiersLis
 }
 
 BOOST_AUTO_TEST_SUITE_END()
+#endif

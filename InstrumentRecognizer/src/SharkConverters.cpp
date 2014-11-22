@@ -1,3 +1,5 @@
+#ifdef BUILD_WITH_SHARK
+
 #include "SharkConverters.h"
 #include <complex>
 #include <algorithm>
@@ -111,3 +113,5 @@ namespace Converters
 		return res;
 	}
 }
+
+#endif

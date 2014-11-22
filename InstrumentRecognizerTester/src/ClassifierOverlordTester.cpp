@@ -40,6 +40,8 @@ BOOST_AUTO_TEST_CASE(WorksCorrectly)
 {
 	Report::ID reportID(10);
 
+	MOCK_EXPECT(descriptionDBManagerMock->areFoldsRemaining).once().returns(true);
+
 	MOCK_EXPECT(classifierFactoryMock->createDefaultClassifierEmpty).once().returns(classifierMock);
 	for(auto& o: observerMocks)
 		MOCK_EXPECT(o->setReportBuilder).once().with(reportBuilderMock);
@@ -47,7 +49,7 @@ BOOST_AUTO_TEST_CASE(WorksCorrectly)
 	MOCK_EXPECT(reportBuilderMock->startReport).once().with(classifierMock.get()).returns(reportID);
 		
 	ClassDescriptionBase base;
-	MOCK_EXPECT(descriptionDBManagerMock->getDescriptions).once().returns(base);
+	MOCK_EXPECT(descriptionDBManagerMock->getTrainingDescriptions).once().returns(base);
 	for (auto& o : observerMocks)
 		MOCK_EXPECT(o->notifyReceivedNewData).once();
 
@@ -55,12 +57,21 @@ BOOST_AUTO_TEST_CASE(WorksCorrectly)
 	for (auto& o : observerMocks)
 		MOCK_EXPECT(o->notifyStartedTraining).once();
 	
-	MOCK_EXPECT(classifierMock->doRun).once();
+    mock::sequence seq;
+	MOCK_EXPECT(classifierMock->doRun).once().in(seq);
+    MOCK_EXPECT(classifierMock->doStop).once().in(seq);
+    for (auto& o : observerMocks)
+        MOCK_EXPECT(o->notifyFinishedTraining).once().with(classifierMock.get());
 
-	MOCK_EXPECT(reportBuilderMock->endReportID).once().with(reportID);
+    MOCK_EXPECT(reportBuilderMock->endReportClassifier).once().with(classifierMock.get()).in(seq);
 	
 	MOCK_EXPECT(classifierDBManagerMock->addClassifier).once().with(classifierMock, boost::lexical_cast<std::string>(reportID));
 
+	MOCK_EXPECT(descriptionDBManagerMock->areFoldsRemaining).once().returns(false);
+    MOCK_EXPECT(descriptionDBManagerMock->nextCrossValidationSet).once();
+
+    MOCK_EXPECT(reportBuilderMock->summarize).once();
+    
 	overlord.teachOne();
 }
 

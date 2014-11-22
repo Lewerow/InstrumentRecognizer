@@ -64,3 +64,9 @@ protected:
 	virtual ObjectDescription getObjectDescription(MPEG7Document& doc);
 };
 
+class DummyDescriber : public Describer
+{
+public:
+    virtual DummyDescriber* clone();
+    virtual ObjectDescription generateObjectDescription();
+};

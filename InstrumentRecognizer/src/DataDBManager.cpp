@@ -1,6 +1,7 @@
 #include "DataDBManager.h"
 
 #include <boost/algorithm/string.hpp>
+#include <boost/lexical_cast.hpp>
 
 #include <string>
 #include <vector>
@@ -119,3 +120,84 @@ ClassName FileDataDBManager::determineClassName(DataDBKey key)
 
 	return splitted.at(splitted.size() - 2);
 }
+
+LineDataDBManager::LineDataDBManager(std::istream& str, int classNameColumn) : lastKey(0)
+{
+    std::string content;
+
+    char a;
+    while (!str.eof())
+    {
+        str.get(a);
+        content.push_back(a);
+    }
+    
+    std::vector<std::string> lines;
+    boost::algorithm::split(lines, content, [](char c){return c == '\n';});
+
+    for (auto& l : lines)
+    {
+        if (l.empty())
+            continue;
+
+        std::stringstream s;
+        s.str(l);
+
+        int currentElement = 0;
+        std::string name;
+        
+        std::unique_ptr<std::stringstream> str(new std::stringstream);
+        while (s)
+        {
+            char c;
+            if (currentElement++ == classNameColumn)
+            {
+                while (s && s.peek() != ';')
+                {
+                    s >> c;
+                    if (s)
+                        name.push_back(c);
+                }
+                s >> c;
+                continue;
+            }
+
+            Descriptor desc;
+            s >> desc >> c;
+            *str << desc << ";";
+        }
+        
+        remainingLines.push(std::make_pair(name, std::move(str)));
+    }
+}
+
+bool LineDataDBManager::areRecordsAvailable()
+{
+    std::lock_guard<std::mutex> lock(dataManagerMutex);
+    return !remainingLines.empty();
+}
+
+DataRecord LineDataDBManager::take()
+{
+    std::lock_guard<std::mutex> lock(dataManagerMutex);
+    if (remainingLines.empty())
+        throw NoMoreRecordsException("All lines already taken");
+
+    auto data = std::move(remainingLines.front());
+    remainingLines.pop();
+
+    std::string key = boost::lexical_cast<std::string>(++lastKey);
+    auto result = DataRecord(key, *data.second, data.first);
+    currentlyProcessed.insert(std::make_pair(key, std::move(data.second)));
+    
+    return result;
+}
+
+void LineDataDBManager::release(DataDBKey key)
+{
+    std::lock_guard<std::mutex> lock(dataManagerMutex);
+    currentlyProcessed.erase(key);
+}
+
+LineDataDBManager::~LineDataDBManager()
+{}

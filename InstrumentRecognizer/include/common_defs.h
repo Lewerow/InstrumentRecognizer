@@ -9,10 +9,15 @@
 #include <pugixml.hpp>
 
 typedef std::string ClassName;
-typedef std::complex<double> Descriptor;
+typedef double Descriptor;
 typedef std::vector<Descriptor> ObjectDescription;
 typedef std::vector<ObjectDescription> ClassDescription;
 typedef std::unordered_map<ClassName, ClassDescription> ClassDescriptionBase;
+
+typedef unsigned int Discretized;
+typedef std::vector<Discretized> DiscretizedObjectDescription;
+typedef std::vector<DiscretizedObjectDescription> DiscretizedClassDescription;
+typedef std::unordered_map<ClassName, DiscretizedClassDescription> DiscretizedClassDescriptionBase;
 
 typedef pugi::xml_document XMLDocument;
 typedef pugi::xml_node XMLNode;

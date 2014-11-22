@@ -80,7 +80,29 @@ private:
 	ClassName determineClassName(DataDBKey key);
 
 	FileDataDBManager(const FileDataDBManager&) = delete;
-	FileDataDBManager(const FileDataDBManager&&) = delete;
 	FileDataDBManager& operator=(const FileDataDBManager&) = delete;
-	FileDataDBManager& operator=(const FileDataDBManager&&) = delete;
+};
+
+
+class LineDataDBManager : public DataDBManager
+{
+public:
+    LineDataDBManager(std::istream& file, int classNameColumn);
+
+    virtual bool areRecordsAvailable();
+
+    virtual DataRecord take();
+    virtual void release(DataDBKey key);
+
+    virtual ~LineDataDBManager();
+
+private:
+    std::queue<std::pair<ClassName, std::unique_ptr<std::stringstream> > > remainingLines;
+    std::unordered_map<std::string, std::unique_ptr<std::stringstream> > currentlyProcessed;
+
+    int lastKey;
+    std::mutex dataManagerMutex;;
+
+    LineDataDBManager(const LineDataDBManager&) = delete;
+    LineDataDBManager& operator=(const LineDataDBManager&) = delete;
 };

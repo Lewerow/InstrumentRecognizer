@@ -1,3 +1,4 @@
+#ifdef BUILD_WITH_SHARK
 #include <memory>
 #include <shark/Algorithms/NearestNeighbors/TreeNearestNeighbors.h>
 #include <shark/Algorithms/NearestNeighbors/SimpleNearestNeighbors.h>
@@ -126,3 +127,4 @@ private:
 	std::unique_ptr<shark::SimpleNearestNeighbors<Input::InputType, Input::LabelType> > algorithm; // may become std::unique_ptr<Implementation> after fixes in shark
 	// until then it'll stay the same, because otherwise it'll leak
 };
+#endif

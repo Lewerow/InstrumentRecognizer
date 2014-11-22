@@ -158,3 +158,23 @@ Describer* MPEG7DetailedDescriber::clone()
 MPEG7DetailedDescriber::~MPEG7DetailedDescriber(void)
 {
 }
+
+DummyDescriber* DummyDescriber::clone()
+{
+    return new DummyDescriber;
+}
+
+ObjectDescription DummyDescriber::generateObjectDescription()
+{
+    ObjectDescription obj;
+    while (*dataStream)
+    {
+        Descriptor desc;
+        char c;
+        *dataStream >> desc >> c;
+        if (*dataStream)
+            obj.push_back(desc);
+    }
+
+    return obj;
+}

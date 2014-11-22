@@ -39,3 +39,11 @@ std::shared_ptr<Classifier> XmlFileClassifierDBManager::getClassifier(const std:
 XmlFileClassifierDBManager::~XmlFileClassifierDBManager()
 {
 }
+
+void DummyClassifierDBManager::addClassifier(std::shared_ptr<Classifier>, const std::string&)
+{}
+
+std::shared_ptr<Classifier> DummyClassifierDBManager::getClassifier(const std::string&)
+{
+	return nullptr;
+}

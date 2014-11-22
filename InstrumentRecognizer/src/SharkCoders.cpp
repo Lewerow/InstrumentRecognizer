@@ -1,3 +1,4 @@
+#ifdef BUILD_WITH_SHARK
 #include "SharkCoders.h"	
 
 #include <algorithm>
@@ -27,3 +28,4 @@ ClassName SimpleCoder::decode(SimpleCoder::ClassCodeType classCode, const CodeTy
 	IR_ASSERT(it != base.end(), "Code received but not found: " + boost::lexical_cast<std::string>(classCode));
 	return it->first;
 }
+#endif

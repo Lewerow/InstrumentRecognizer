@@ -8,6 +8,7 @@
 #include <ctime>
 #include <iomanip>
 #include <unordered_map>
+#include <numeric>
 
 struct ReportBuilder::ReportStructure
 {
@@ -35,6 +36,10 @@ struct ReportBuilder::ReportStructure
 	{
 		boost::optional<double> rms;
 		boost::optional<double> spread;
+		boost::optional<double> accurracy;
+		boost::optional<double> recall;
+		boost::optional<double> precision;
+		boost::optional<double> fmeasure;
 		boost::optional<unsigned int> correct;
 		boost::optional<unsigned int> incorrect;
 		boost::optional<unsigned int> trainingObjects;
@@ -107,6 +112,7 @@ void ReportBuilder::endReport(Classifier* classifier)
 void ReportBuilder::endReport(Report::ID id)
 {
 	reportDBManager->putReport(id, assemble(id));
+	finishedReports.push_back(reportsCache.at(id));
 	reportsCache.erase(id);
 }
 
@@ -170,6 +176,74 @@ void ReportBuilder::addSpreadTotal(Classifier* c, double res)
 
 	std::shared_ptr<ReportStructure> rep = reportsCache.at(pendingReports.at(c));
 	rep->totals.spread = res;
+}
+
+void ReportBuilder::addAccurracySingle(Classifier* c, const ClassName& cn, double i)
+{
+	IR_ASSERT(pendingReports.count(c) == 1, "No pending report for given classifier");
+
+	std::shared_ptr<ReportStructure> rep = reportsCache.at(pendingReports.at(c));
+	enableClassDetails(rep, cn);
+
+	rep->details.get().at(cn).results.accurracy = i;
+}
+
+void ReportBuilder::addAccurracyTotal(Classifier* c, double i)
+{
+	IR_ASSERT(pendingReports.count(c) == 1, "No pending report for given classifier");
+
+	reportsCache.at(pendingReports.at(c))->totals.accurracy = i;
+}
+
+void ReportBuilder::addRecallSingle(Classifier* c, const ClassName& cn, double i)
+{
+	IR_ASSERT(pendingReports.count(c) == 1, "No pending report for given classifier");
+
+	std::shared_ptr<ReportStructure> rep = reportsCache.at(pendingReports.at(c));
+	enableClassDetails(rep, cn);
+
+	rep->details.get().at(cn).results.recall = i;
+}
+
+void ReportBuilder::addRecallTotal(Classifier* c, double i)
+{
+	IR_ASSERT(pendingReports.count(c) == 1, "No pending report for given classifier");
+
+	reportsCache.at(pendingReports.at(c))->totals.recall = i;
+}
+
+void ReportBuilder::addPrecisionSingle(Classifier* c, const ClassName& cn, double i)
+{
+	IR_ASSERT(pendingReports.count(c) == 1, "No pending report for given classifier");
+
+	std::shared_ptr<ReportStructure> rep = reportsCache.at(pendingReports.at(c));
+	enableClassDetails(rep, cn);
+
+	rep->details.get().at(cn).results.precision = i;
+}
+
+void ReportBuilder::addPrecisionTotal(Classifier* c, double i)
+{
+	IR_ASSERT(pendingReports.count(c) == 1, "No pending report for given classifier");
+
+	reportsCache.at(pendingReports.at(c))->totals.precision = i;
+}
+
+void ReportBuilder::addFMeasureSingle(Classifier* c, const ClassName& cn, double i)
+{
+	IR_ASSERT(pendingReports.count(c) == 1, "No pending report for given classifier");
+
+	std::shared_ptr<ReportStructure> rep = reportsCache.at(pendingReports.at(c));
+	enableClassDetails(rep, cn);
+
+	rep->details.get().at(cn).results.fmeasure = i;
+}
+
+void ReportBuilder::addFMeasureTotal(Classifier* c, double i)
+{
+	IR_ASSERT(pendingReports.count(c) == 1, "No pending report for given classifier");
+
+	reportsCache.at(pendingReports.at(c))->totals.fmeasure = i;
 }
 
 void ReportBuilder::addTrainingDuration(Classifier* c, std::chrono::system_clock::duration t)
@@ -283,7 +357,60 @@ void ReportBuilder::addClassificationResult(Classifier* c, const ClassName& expe
 
 	classifiedAs.at(received).push_back(description);
 }
-	
+
+namespace
+{
+	template <typename T>
+	boost::optional<T> accumulate_optional(boost::optional<T> opt, boost::optional<T> val)
+	{
+		if (opt.is_initialized())
+			return val.get() + (opt.get());
+
+		return val;
+	}
+
+	template <typename T>
+	void divide(boost::optional<T>& t, int v)
+	{
+		if (t.is_initialized())
+    		t = t.get() / v;
+	}
+}
+
+void ReportBuilder::summarize()
+{
+	std::shared_ptr<ReportStructure> report(new ReportStructure);
+	report->general.title = "Summary";
+
+	for (auto& partial : finishedReports)
+	{
+		report->general.trainingDuration = accumulate_optional(report->general.trainingDuration, partial->general.trainingDuration);
+		report->totals.rms = accumulate_optional(report->totals.rms, partial->totals.rms);
+		report->totals.spread = accumulate_optional(report->totals.spread, partial->totals.spread);
+		report->totals.accurracy = accumulate_optional(report->totals.accurracy, partial->totals.accurracy);
+		report->totals.recall = accumulate_optional(report->totals.recall, partial->totals.recall);
+		report->totals.precision = accumulate_optional(report->totals.precision, partial->totals.precision);
+		report->totals.fmeasure = accumulate_optional(report->totals.fmeasure, partial->totals.fmeasure);
+		report->totals.correct = accumulate_optional(report->totals.correct, partial->totals.correct);
+		report->totals.incorrect = accumulate_optional(report->totals.incorrect, partial->totals.incorrect);
+		report->totals.trainingObjects = accumulate_optional(report->totals.trainingObjects, partial->totals.trainingObjects);
+		report->totals.testObjects = accumulate_optional(report->totals.testObjects, partial->totals.testObjects);
+	}
+	divide(report->totals.rms, finishedReports.size());
+	divide(report->totals.spread, finishedReports.size());
+	divide(report->totals.accurracy, finishedReports.size());
+	divide(report->totals.recall, finishedReports.size());
+	divide(report->totals.precision, finishedReports.size());
+	divide(report->totals.fmeasure, finishedReports.size());
+	divide(report->totals.correct, finishedReports.size());
+	divide(report->totals.incorrect, finishedReports.size());
+	divide(report->totals.trainingObjects, finishedReports.size());
+	divide(report->totals.testObjects, finishedReports.size());
+
+	reportsCache.insert(std::make_pair(99999, report));
+	reportDBManager->putReport(99999, assemble(99999));
+}
+
 TextReportBuilder::TextReportBuilder(std::shared_ptr<ReportDBManager> mgr) : ReportBuilder(mgr), printer(new Printer)
 {}
 
@@ -343,7 +470,7 @@ void TextReportBuilder::Printer::printHeader(std::ostream& str, Report::ID id, s
 
 	str << "Training time: " ;
 	if(rs->general.trainingDuration)
-		str << std::chrono::duration_cast<std::chrono::seconds>(rs->general.trainingDuration.get()).count() << " seconds" << std::endl;
+		str << std::chrono::duration_cast<std::chrono::milliseconds>(rs->general.trainingDuration.get()).count() << " milliseconds" << std::endl;
 	else
 		str << "N/A" << std::endl;
 	
@@ -364,6 +491,10 @@ void TextReportBuilder::Printer::printOverallResults(std::ostream& str, std::sha
 	str << "Total test objects: " << rs->totals.testObjects << std::endl;
 	str << "Total correctly identified: " << rs->totals.correct << std::endl;
 	str << "Total incorrectly identified: " << rs->totals.incorrect << std::endl;
+	str << "Mean accurracy: " << rs->totals.accurracy << std::endl;
+	str << "Mean recall: " << rs->totals.recall << std::endl;
+	str << "Mean precision: " << rs->totals.precision << std::endl;
+	str << "Mean F-measure: " << rs->totals.fmeasure << std::endl;
 	str << "RMS: " << std::setprecision(4) << std::fixed << rs->totals.rms << std::endl;
 	str << "Spread: " << std::setprecision(1) << std::fixed << rs->totals.spread << std::endl;
 	str << std::endl;
@@ -377,6 +508,10 @@ void TextReportBuilder::Printer::printSingleClassResults(std::ostream& str, cons
 	str << "Test objects: " << data.results.testObjects << std::endl;
 	str << "Correctly identified: " << data.results.correct << std::endl;
 	str << "Incorrectly identified: " << data.results.incorrect << std::endl;
+	str << "Accurracy: " << std::setprecision(4) << std::fixed << data.results.accurracy << std::endl;
+	str << "Recall: " << std::setprecision(4) << std::fixed << data.results.recall << std::endl;
+	str << "Precision: " << std::setprecision(4) << std::fixed << data.results.precision << std::endl;
+	str << "F-measure: " << std::setprecision(4) << std::fixed << data.results.fmeasure << std::endl;
 	str << "RMS: " << std::setprecision(4) << std::fixed << data.results.rms << std::endl;
 	str << "Spread: " << std::setprecision(0) << std::fixed << data.results.spread << std::endl;
 	
@@ -414,7 +549,8 @@ std::string TextReportBuilder::Printer::serializeObjectDescription(const ObjectD
 {
 	std::stringstream str;
 	for(auto& i: desc)
-		str << i.real() << " " << i.imag() << " ";
+//		str << i.real() << " " << i.imag() << " ";
+		str << i << " ";
 
 	return str.str();
 }

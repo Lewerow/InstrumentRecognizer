@@ -34,5 +34,6 @@ MOCK_BASE_CLASS(ReportBuilderMock, ReportBuilder)
 	MOCK_METHOD_EXT(addTotalTrainingObjectCount, 2, void(Classifier*, unsigned int), addTotalTrainingObjectCount);
 	MOCK_METHOD_EXT(addClassificationResult, 4, void(Classifier*, const ClassName&, const ObjectDescription&, const ClassName&), addClassificationResult);
 
+    MOCK_METHOD_EXT(summarize, 0, void(), summarize);
 	MOCK_METHOD_EXT(assemble, 1, std::shared_ptr<Report>(Report::ID), assemble);
 };

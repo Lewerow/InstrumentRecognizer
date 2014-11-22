@@ -21,25 +21,32 @@ void ClassifierOverlord::setObservers(const std::vector<std::shared_ptr<Classifi
 
 void ClassifierOverlord::teachOne()
 {
-	std::shared_ptr<Classifier> classifier = classifierFactory->createDefaultClassifier();
-	IR_ASSERT(reportBuilder.get(), "Cannot teach classifier without report builder attached!");
-
-	for(auto& o: observers)
+	while (descriptionDBManager->areFoldsRemaining())
 	{
-		o->setReportBuilder(reportBuilder.get());
-		classifier->attachObserver(o);
+		std::shared_ptr<Classifier> classifier = classifierFactory->createDefaultClassifier();
+		IR_ASSERT(reportBuilder.get(), "Cannot teach classifier without report builder attached!");
+
+		for(auto& o: observers)
+		{
+			o->setReportBuilder(reportBuilder.get());
+			classifier->attachObserver(o);
+		}
+
+		Report::ID reportID = reportBuilder.get()->startReport(classifier.get());
+		classifier->setInputData(descriptionDBManager->getTrainingDescriptions());
+		classifier->run();
+		classifier->stop();
+
+		reportBuilder.get()->endReport(classifier.get());
+
+		for(auto& o: observers)
+			classifier->detachObserver(o);
+
+		classifierDBManager->addClassifier(classifier, boost::lexical_cast<std::string>(reportID));
+		descriptionDBManager->nextCrossValidationSet();
 	}
 
-	Report::ID reportID = reportBuilder.get()->startReport(classifier.get());
-	classifier->setInputData(descriptionDBManager->getDescriptions());
-	classifier->run();
-
-	reportBuilder.get()->endReport(reportID);
-
-	for(auto& o: observers)
-		classifier->detachObserver(o);
-
-	classifierDBManager->addClassifier(classifier, boost::lexical_cast<std::string>(reportID));
+	reportBuilder.get()->summarize();
 }
 
 ClassifierOverlord::~ClassifierOverlord(void)

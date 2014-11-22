@@ -1,3 +1,4 @@
+#ifdef BUILD_WITH_SHARK
 #pragma once
 
 #include "ClassifierResults.h"
@@ -86,3 +87,5 @@ ADD_CONVERTER_TRAIT(Converters::UnsignedIntToClassifierResults)
 ADD_SINGLE_CONVERTER_TRAIT(Converters::UnsignedIntToClassifierResults)
 ADD_CONVERTER_TRAIT(Converters::SingleElementRealVectorToClassifierResults)
 ADD_SINGLE_CONVERTER_TRAIT(Converters::SingleElementRealVectorToClassifierResults)
+
+#endif

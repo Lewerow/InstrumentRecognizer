@@ -21,9 +21,11 @@ namespace
 	void writeObjectDescriptionToStream(std::ostream& stream, const ObjectDescription& desc)
 	{
 		auto i = desc.begin();
-		stream<< desc.begin()->real() << "," << desc.begin()->imag();
-		for(i++; i != desc.end(); i++)
-				stream<<","<<i->real()<<","<<i->imag();
+		// stream<< desc.begin()->real() << "," << desc.begin()->imag();
+		stream << *desc.begin();
+		for (i++; i != desc.end(); i++)
+			//stream<<","<<i->real()<<","<<i->imag();
+			stream<<","<<*i;
 
 		stream << std::endl;
 	}
@@ -44,9 +46,10 @@ namespace
 	}
 }
 
-FileDescriptionDBManager::FileDescriptionDBManager(const boost::filesystem::path& path) : gatheringEnabled(false), descriptorsPerDecription(0), dbPath(path)
+FileDescriptionDBManager::FileDescriptionDBManager(const boost::filesystem::path& path, int foldCount) : gatheringEnabled(false), descriptorsPerDecription(0), dbPath(path), currentOddOneOut(foldCount > 1 ? 0 : 1)
 {
 	IR_ASSERT(boost::filesystem::is_directory(path), "FileDescriptionDBManager expects to receive path to a directory. Received: " + path.string());
+	descriptions.resize(foldCount);
 }
 
 FileDescriptionDBManager::~FileDescriptionDBManager(void)
@@ -65,7 +68,9 @@ void FileDescriptionDBManager::addDescription(const ClassName& className, const 
 	checkIfHasValidNumberOfDescriptors(newDescription);
 
 	std::lock_guard<std::recursive_mutex> lock(descriptionManagerMutex);
-	descriptions[className].push_back(newDescription);
+	descriptions[currentDescriptionLocation[className]][className].push_back(newDescription);
+	if (++currentDescriptionLocation[className] == descriptions.size())
+		currentDescriptionLocation[className] = 0;
 }
 
 void FileDescriptionDBManager::checkIfHasValidNumberOfDescriptors(const ObjectDescription& desc)
@@ -102,8 +107,10 @@ void FileDescriptionDBManager::saveDescriptions(const std::string& path)
 void FileDescriptionDBManager::saveDescriptions(const boost::filesystem::path& path)
 {
 	std::lock_guard<std::recursive_mutex> lock(descriptionManagerMutex);
+
 	for(auto i: descriptions)
-		saveDescription(path, i.first, i.second);
+    	for (auto j : i)
+	    	saveDescription(path, j.first, j.second);
 }
 
 void FileDescriptionDBManager::saveDescription(const boost::filesystem::path& dirPath, const ClassName& className, const ClassDescription& description)
@@ -174,33 +181,63 @@ ObjectDescription FileDescriptionDBManager::loadObjectDescription(const std::str
 	for(auto num: numbers)
 		boost::algorithm::trim(num);
 
-	if(numbers.size() % 2 != 0)
-		throw InvalidFile("Input stream contains odd number of descriptors! They are not supported in current implementation. Entire input line: " + inputStr);
+//	if(numbers.size() % 2 != 0)
+//		throw InvalidFile("Input stream contains odd number of descriptors! They are not supported in current implementation. Entire input line: " + inputStr);
 	
-	try
-	{
+//	try
+//	{
 		auto it = numbers.begin();
 		while(it < numbers.end())
 		{
-			Descriptor::value_type re = boost::lexical_cast<Descriptor::value_type>(*it++);
-			Descriptor::value_type im = boost::lexical_cast<Descriptor::value_type>(*it++);
-			entireDescription.push_back(Descriptor(re, im));
+//			Descriptor::value_type re = boost::lexical_cast<Descriptor::value_type>(*it++);
+//			Descriptor::value_type im = boost::lexical_cast<Descriptor::value_type>(*it++);
+//			entireDescription.push_back(Descriptor(re, im));
+			entireDescription.push_back(Descriptor(boost::lexical_cast<Descriptor>(*it++)));
 		}
-	}
-	catch(boost::bad_lexical_cast err)
-	{
-		throw std::runtime_error(std::string(err.what()) + " in line: " + inputStr);
-	}
+//	}
+//	catch(boost::bad_lexical_cast err)
+//	{
+//		throw std::runtime_error(std::string(err.what()) + " in line: " + inputStr);
+//	}
 
 	return entireDescription;
 }
 
 void FileDescriptionDBManager::reset()
 {
-	descriptions.clear();
+	for(auto& d :descriptions)
+		d.clear();
 }
 
-const ClassDescriptionBase& FileDescriptionDBManager::getDescriptions() const
+ClassDescriptionBase FileDescriptionDBManager::getTrainingDescriptions() const
 {
-	return descriptions;
+	ClassDescriptionBase base;
+	for (std::size_t i = 0; i < descriptions.size(); ++i)
+	{
+		if (i != currentOddOneOut)
+		{
+			for (auto& cls : descriptions[i])
+				base[cls.first].insert(base[cls.first].end(), cls.second.begin(), cls.second.end());
+		}
+	}
+
+	return base;
+}
+
+ClassDescriptionBase FileDescriptionDBManager::getTestDescriptions() const
+{
+	if (currentOddOneOut >= descriptions.size())
+		return getTrainingDescriptions();
+
+	return descriptions[currentOddOneOut];
+}
+
+void FileDescriptionDBManager::nextCrossValidationSet()
+{
+	currentOddOneOut++;
+}
+
+bool FileDescriptionDBManager::areFoldsRemaining()
+{
+	return currentOddOneOut < descriptions.size();
 }

@@ -25,6 +25,7 @@ struct std::less<SingleClassifierResult>
 	}
 };
 
-class ClassifierResults : public boost::heap::binomial_heap<SingleClassifierResult, boost::heap::compare<std::less<SingleClassifierResult> > >
-{
-};
+typedef boost::heap::binomial_heap<SingleClassifierResult, boost::heap::compare<std::less<SingleClassifierResult> > > 
+    ClassifierResults;
+
+ClassifierResults singleResultClass(const ClassName& name);

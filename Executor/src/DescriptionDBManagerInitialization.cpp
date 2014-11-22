@@ -4,14 +4,14 @@
 
 namespace setup
 {
-	DescriptionDBManager* description_db_manager_for_describing(const std::string& path)
+	DescriptionDBManager* description_db_manager_for_describing(const std::string& path, int foldCount)
 	{
-		return new FileDescriptionDBManager(path);
+		return new FileDescriptionDBManager(path, foldCount);
 	}
 
-	DescriptionDBManager* description_db_manager_for_classifying(const std::string& path)
+	DescriptionDBManager* description_db_manager_for_classifying(const std::string& path, int foldCount)
 	{
-		DescriptionDBManager* desc = new FileDescriptionDBManager(path);
+		DescriptionDBManager* desc = new FileDescriptionDBManager(path, foldCount);
 		desc->loadDescriptions(path);
 
 		return desc;

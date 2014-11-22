@@ -8,6 +8,25 @@
 #include <Describer.h>
 
 BOOST_AUTO_TEST_SUITE(Describers)
+
+BOOST_AUTO_TEST_SUITE(Dummy)
+BOOST_AUTO_TEST_CASE(SimplyExtractsDoublesFromStream)
+{
+    std::stringstream s;
+    s << "1;2.3;6.66;5.44;";
+    DummyDescriber desc;
+    desc.setInputStream(&s);
+
+    auto obj = desc.generateObjectDescription();
+    BOOST_REQUIRE_EQUAL(4, obj.size());
+
+    BOOST_CHECK_CLOSE(1, obj[0], 0.1);
+    BOOST_CHECK_CLOSE(2.3, obj[1], 0.1);
+    BOOST_CHECK_CLOSE(6.66, obj[2], 0.1);
+    BOOST_CHECK_CLOSE(5.44, obj[3], 0.1);
+}
+BOOST_AUTO_TEST_SUITE_END()
+
 BOOST_AUTO_TEST_SUITE(MPEG7)
 
 BOOST_AUTO_TEST_CASE(MPEG7DescriberExistsAndRequiresStream)
@@ -32,8 +51,9 @@ BOOST_AUTO_TEST_CASE(MPEG7DescriberExistsAndRequiresStream)
 
 	for (std::size_t i = 0; i < expected.size(); i++)
 	{
-		BOOST_CHECK_CLOSE(description.at(i).real(), expected.at(i).real(), MAX_PERCENTAGE_DIFFERENCE);
-		BOOST_CHECK_CLOSE(description.at(i).imag(), expected.at(i).imag(), MAX_PERCENTAGE_DIFFERENCE);
+//		BOOST_CHECK_CLOSE(description.at(i).real(), expected.at(i).real(), MAX_PERCENTAGE_DIFFERENCE);
+//		BOOST_CHECK_CLOSE(description.at(i).imag(), expected.at(i).imag(), MAX_PERCENTAGE_DIFFERENCE);
+		BOOST_CHECK_CLOSE(description.at(i), expected.at(i), MAX_PERCENTAGE_DIFFERENCE);
 	}
 }
 
@@ -64,8 +84,9 @@ BOOST_AUTO_TEST_CASE(MPEG7DetailedDescriberExistsAndRequiresStream)
 	BOOST_REQUIRE_EQUAL(description.size(), expected.size());
 	for (std::size_t i = 0; i < expected.size(); i++)
 	{
-		BOOST_CHECK_CLOSE(description.at(i).real(), expected.at(i).real(), MAX_PERCENTAGE_DIFFERENCE);
-		BOOST_CHECK_CLOSE(description.at(i).imag(), expected.at(i).imag(), MAX_PERCENTAGE_DIFFERENCE);
+//		BOOST_CHECK_CLOSE(description.at(i).real(), expected.at(i).real(), MAX_PERCENTAGE_DIFFERENCE);
+//		BOOST_CHECK_CLOSE(description.at(i).imag(), expected.at(i).imag(), MAX_PERCENTAGE_DIFFERENCE);
+		BOOST_CHECK_CLOSE(description.at(i), expected.at(i), MAX_PERCENTAGE_DIFFERENCE);
 	}
 }
 
@@ -89,8 +110,9 @@ BOOST_AUTO_TEST_CASE(ViolinHandledCorrectly)
     
 	for(std::size_t i = 0; i < expected.size(); i++)
 	{
-		BOOST_CHECK_CLOSE(description.at(i).real(), expected.at(i).real(), MAX_PERCENTAGE_DIFFERENCE);
-		BOOST_CHECK_CLOSE(description.at(i).imag(), expected.at(i).imag(), MAX_PERCENTAGE_DIFFERENCE);
+//		BOOST_CHECK_CLOSE(description.at(i).real(), expected.at(i).real(), MAX_PERCENTAGE_DIFFERENCE);
+//		BOOST_CHECK_CLOSE(description.at(i).imag(), expected.at(i).imag(), MAX_PERCENTAGE_DIFFERENCE);
+		BOOST_CHECK_CLOSE(description.at(i), expected.at(i), MAX_PERCENTAGE_DIFFERENCE);
 	}
 }
 

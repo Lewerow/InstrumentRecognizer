@@ -30,29 +30,43 @@ void GeneralDataClassifierObserver::visit(Classifier* c)
 	footer = "";
 }
 
+void GeneralDataClassifierObserver::visit(ILAClassifier* c)
+{
+	title = "ILA Classifier";
+	header = "Results for ILA Classification Algorithm";
+	footer = "End of results for ILA";
+}
+
+void GeneralDataClassifierObserver::visit(NaiveBayesClassifier* c)
+{
+	title = "Naive Bayes Classifier";
+	header = "Results for Naive Bayes Classification Algorithm";
+	footer = "End of results for Naive Bayes";
+}
+
 void GeneralDataClassifierObserver::visit(RandomClassifier*)
 {
-	title = "RandomClassifier";
+	title = "Random Classifier";
 	header = "For reference";
 	footer = "";
 }
 
 void GeneralDataClassifierObserver::visit(LinearClassifier* c)
 {
-	title = "LinearClassifier";
+	title = "Linear Classifier";
 	header = "Results for linear classifier";
 	footer = "End of results for linear classifier";
 }
 
 void GeneralDataClassifierObserver::visit(LASSOClassifier* c)
 {
-	title = "LASSOClassifier";
+	title = "LASSO Classifier";
 	header = "Results for LASSO classifier";
 	footer = "End of results for LASSO classifier";
 }
 void GeneralDataClassifierObserver::visit(NearestNeighborClassifier* c)
 {
-	title = "NearestNeighborClassifier";
+	title = "Nearest Neighbor Classifier";
 	header = "Results. Unfortunately, currently there is no option to check strategy. sorry for that";
 	footer = "The end. Hope you enjoyed it";
 }

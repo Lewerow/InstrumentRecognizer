@@ -1,3 +1,4 @@
+#ifdef BUILD_WITH_SHARK
 #include "LinearClassifier.h"
 #include "ClassifierObservers.h"
 #include "ClassifierVisitor.h"
@@ -69,3 +70,4 @@ std::string LinearClassifier::Builder::dismantleToText(std::shared_ptr<Classifie
 {
 	return std::string();
 }
+#endif

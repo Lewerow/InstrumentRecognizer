@@ -1,3 +1,4 @@
+#ifdef BUILD_WITH_SHARK
 #include "LASSOClassifier.h"
 #include "ClassifierVisitor.h"
 
@@ -80,3 +81,4 @@ std::string LASSOClassifier::Builder::dismantleToText(std::shared_ptr<Classifier
 {
 	return std::string();
 }
+#endif

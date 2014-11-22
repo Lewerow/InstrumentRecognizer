@@ -1,3 +1,4 @@
+#ifdef BUILD_WITH_SHARK
 #include "NearestNeighborClassifier.h"
 #include "NearestNeighborsStrategies.h"
 #include "ClassifierVisitor.h"
@@ -80,3 +81,4 @@ std::string NearestNeighborClassifier::Builder::dismantleToText(std::shared_ptr<
 {
 	return std::string();
 }
+#endif

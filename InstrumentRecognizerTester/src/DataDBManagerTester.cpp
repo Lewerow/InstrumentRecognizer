@@ -12,6 +12,74 @@ std::string readEntireRecord(DataRecord record)
 }
 
 BOOST_AUTO_TEST_SUITE(DBManagers)
+
+BOOST_AUTO_TEST_SUITE(LineData)
+
+BOOST_AUTO_TEST_CASE(LoadsProperDataCount)
+{
+    std::stringstream s;
+    s << "1;1;1;jajko" << std::endl;
+    s << "2;2;2;zupa" << std::endl;
+
+    LineDataDBManager mgr(s, 3);
+
+    auto rec1 = mgr.take();
+    BOOST_CHECK_EQUAL("jajko", rec1.className);
+
+    auto rec2 = mgr.take();
+    BOOST_CHECK_EQUAL("zupa", rec2.className);
+
+    BOOST_CHECK(!mgr.areRecordsAvailable());
+    BOOST_CHECK_THROW(mgr.take(), DataDBManager::NoMoreRecordsException);
+
+    mgr.release(rec1.dbKey);
+    mgr.release(rec2.dbKey);
+}
+
+BOOST_AUTO_TEST_CASE(LoadsProperDataCountWithOtherOrder)
+{
+    std::stringstream s;
+    s << "jajko;1;1;1" << std::endl;
+    s << "zupa;2;2;2" << std::endl;
+    s << "okno;4.3;4.4;4.1" << std::endl;
+
+    LineDataDBManager mgr(s, 0);
+
+    char f;
+    double a, b, c;
+
+    auto rec1 = mgr.take();
+    rec1.input >> a >> f >> b >> f >> c;
+    BOOST_CHECK_EQUAL("jajko", rec1.className);
+    BOOST_CHECK_CLOSE(1, a, 0.1);
+    BOOST_CHECK_CLOSE(1, b, 0.1);
+    BOOST_CHECK_CLOSE(1, c, 0.1);
+
+    auto rec2 = mgr.take();
+    rec2.input >> a >> f >> b >> f >> c;
+    BOOST_CHECK_EQUAL("zupa", rec2.className);
+    BOOST_CHECK_CLOSE(2, a, 0.1);
+    BOOST_CHECK_CLOSE(2, b, 0.1);
+    BOOST_CHECK_CLOSE(2, c, 0.1);
+
+    auto rec3 = mgr.take();
+    rec3.input >> a >> f >> b >> f >> c;
+    BOOST_CHECK_EQUAL("okno", rec3.className);
+    BOOST_CHECK_CLOSE(4.3, a, 0.1);
+    BOOST_CHECK_CLOSE(4.4, b, 0.1);
+    BOOST_CHECK_CLOSE(4.1, c, 0.1);
+
+    BOOST_CHECK(!mgr.areRecordsAvailable());
+    BOOST_CHECK_THROW(mgr.take(), DataDBManager::NoMoreRecordsException);
+
+    mgr.release(rec1.dbKey);
+    mgr.release(rec2.dbKey);
+    mgr.release(rec3.dbKey);
+}
+
+BOOST_AUTO_TEST_SUITE_END()
+
+
 BOOST_AUTO_TEST_SUITE(FileData)
 
 BOOST_AUTO_TEST_CASE(DirThatDoesNotExist)

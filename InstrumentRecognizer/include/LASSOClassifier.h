@@ -1,4 +1,6 @@
+#ifdef BUILD_WITH_SHARK
 #pragma once
+
 #include <shark/Algorithms/Trainers/LassoRegression.h>
 
 #include "Classifier.h"
@@ -39,3 +41,4 @@ private:
 	std::unique_ptr<Implementation> classifier;
 	double lambda;
 };
+#endif

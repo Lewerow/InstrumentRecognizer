@@ -35,6 +35,13 @@ public:
 	};
 };
 
+class DummyClassifierDBManager : public ClassifierDBManager
+{
+public:
+	virtual void addClassifier(std::shared_ptr<Classifier>, const std::string&);
+	virtual std::shared_ptr<Classifier> getClassifier(const std::string&);
+};
+
 class XmlFileClassifierDBManager :	public ClassifierDBManager
 {
 public:
