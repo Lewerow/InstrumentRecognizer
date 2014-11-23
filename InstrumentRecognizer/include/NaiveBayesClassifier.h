@@ -48,6 +48,7 @@ private:
 	std::vector<std::unique_ptr<Discretizer> > discretizers;
 
 	std::vector<std::map<Discretized, std::map<ClassName, double> > > probabilities;
+	double minProbability;
 };
 
 #endif

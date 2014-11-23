@@ -60,13 +60,9 @@ double NaiveBayesClassifier::probablilityFor(const ClassName& cls, const Discret
 	{
 		auto value = probabilities[att].find(desc[att]);
 		if (value == probabilities[att].end()) // means: attribute never had such value in training data. Possible for some discretizations
-			return 0;
+			return minProbability;
 
-		auto cls_prob = value->second.find(cls);
-		if (cls_prob == value->second.end()) // means: this class never had this attribute value
-			return 0;
-
-		prob *= cls_prob->second;
+		prob *= value->second.at(cls);
 	}
 
 	return prob;
@@ -109,7 +105,28 @@ void NaiveBayesClassifier::teach()
 		for (auto& obj : cls.second)
 		{
 			for (std::size_t att = 0; att < obj.size(); ++att)
-				probabilities[att][obj[att]][cls.first] += (double(1)) / totalObjects;
+				probabilities[att][obj[att]][cls.first] += 1;
+		}
+	}
+
+	//smoothing
+
+	for (auto& att : probabilities)
+	{
+		auto objectsForAttribute = totalObjects;
+		for (auto& probs : att)
+		{
+			if (probs.second.size() != discretizedBase.size())
+			{
+				for (auto& cls : discretizedBase)
+				{
+    				++probs.second[cls.first];
+					++objectsForAttribute;
+				}
+			}
+
+			for (auto& prob : probs.second)
+				prob.second = prob.second / objectsForAttribute;
 		}
 	}
 }
