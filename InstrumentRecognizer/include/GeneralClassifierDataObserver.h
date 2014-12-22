@@ -14,6 +14,7 @@ public:
 	virtual void visit(LinearClassifier*);
 	virtual void visit(RandomClassifier*);
 	virtual void visit(NearestNeighborClassifier*);
+	virtual void visit(OwnNearestNeighborClassifier*);
 	virtual void visit(LASSOClassifier*);
 
 	std::string title;

@@ -1,0 +1,85 @@
+Report ID: 5
+Naive Bayes Classifier
+Results for Naive Bayes Classification Algorithm
+General data
+Created on: 2014-11-23, 00:10:10
+Training time: 1 milliseconds
+Training iterations: 0
+Overall results
+Total training objects: 159
+Total test objects: 19
+Total correctly identified: 18
+Total incorrectly identified: 1
+Mean accurracy: 0.947368
+Mean recall: 0.958333
+Mean precision: 0.952381
+Mean F-measure: 0.952137
+RMS: N/A
+Spread: 0.3
+
+Data divided into classes
+Class 1
+Mapped to number: N/A
+Training objects: 53
+Test objects: 6
+Correctly identified: 6
+Incorrectly identified: 0
+Accurracy: 0.9474
+Recall: 1.0000
+Precision: 0.8571
+F-measure: 0.9231
+RMS: N/A
+Spread: 0
+1: 6
+
+Class 2
+Mapped to number: N/A
+Training objects: 63
+Test objects: 8
+Correctly identified: 7
+Incorrectly identified: 1
+Accurracy: 0.9474
+Recall: 0.8750
+Precision: 1.0000
+F-measure: 0.9333
+RMS: N/A
+Spread: 1
+2: 7
+1: 1
+
+Class 3
+Mapped to number: N/A
+Training objects: 43
+Test objects: 5
+Correctly identified: 5
+Incorrectly identified: 0
+Accurracy: 0.9474
+Recall: 1.0000
+Precision: 1.0000
+F-measure: 1.0000
+RMS: N/A
+Spread: 0
+3: 5
+
+Detailed classification data: 
+14.2 1.76 2.45 15.2 112 3.27 3.39 0.34 1.97 6.75 1.05 2.85 1450 of class 1 classified as 1
+14.38 1.87 2.38 12 102 3.3 3.64 0.29 2.96 7.5 1.2 3 1547 of class 1 classified as 1
+12.85 1.6 2.52 17.8 95 2.48 2.37 0.26 1.46 3.93 1.09 3.63 1015 of class 1 classified as 1
+13.68 1.83 2.36 17.2 104 2.42 2.69 0.42 1.97 3.84 1.23 2.87 990 of class 1 classified as 1
+13.41 3.84 2.12 18.8 90 2.45 2.68 0.27 1.48 4.28 0.91 3 1035 of class 1 classified as 1
+13.05 1.73 2.04 12.4 92 2.72 3.27 0.17 2.91 7.2 1.12 2.91 1150 of class 1 classified as 1
+12.17 1.45 2.53 19 104 1.89 1.75 0.45 1.03 2.95 1.45 2.23 355 of class 2 classified as 2
+12.08 1.13 2.51 24 78 2 1.58 0.4 1.4 2.2 1.31 2.72 630 of class 2 classified as 2
+12 1.51 2.42 22 86 1.45 1.25 0.5 1.63 3.6 1.05 2.65 450 of class 2 classified as 2
+12.08 2.08 1.7 17.5 97 2.23 2.17 0.26 1.4 3.3 1.27 2.96 710 of class 2 classified as 2
+11.61 1.35 2.7 20 94 2.74 2.92 0.29 2.49 2.65 0.96 3.26 680 of class 2 classified as 2
+12.77 3.43 1.98 16 80 1.63 1.25 0.43 0.83 3.4 0.7 2.12 372 of class 2 classified as 2
+11.79 2.13 2.78 28.5 92 2.13 2.24 0.58 1.76 3 0.97 2.44 466 of class 2 classified as 2
+12.99 1.67 2.6 30 139 3.3 2.89 0.21 1.96 3.35 1.31 3.5 985 of class 2 classified as 1
+12.6 2.46 2.2 18.5 94 1.62 0.66 0.63 0.94 7.1 0.73 1.58 695 of class 3 classified as 3
+12.25 3.88 2.2 18.5 112 1.38 0.78 0.29 1.14 8.21 0.65 2 855 of class 3 classified as 3
+13.23 3.3 2.28 18.5 98 1.8 0.83 0.61 1.87 10.52 0.56 1.51 675 of class 3 classified as 3
+12.85 3.27 2.58 22 106 1.65 0.6 0.6 0.96 5.58 0.87 2.11 570 of class 3 classified as 3
+12.77 2.39 2.28 19.5 86 1.39 0.51 0.48 0.64 9.9 0.57 1.63 470 of class 3 classified as 3
+
+End of results for Naive Bayes

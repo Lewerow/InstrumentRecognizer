@@ -1,0 +1,20 @@
+Report ID: 99999
+Summary
+
+General data
+Created on: N/A
+Training time: 5 milliseconds
+Training iterations: N/A
+Overall results
+Total training objects: 171
+Total test objects: 42
+Total correctly identified: 25
+Total incorrectly identified: 17
+Mean accurracy: 0.590555
+Mean recall: 0.707976
+Mean precision: 0.707541
+Mean F-measure: 0.683109
+RMS: N/A
+Spread: 1.3
+
+

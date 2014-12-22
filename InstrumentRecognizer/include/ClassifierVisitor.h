@@ -2,6 +2,7 @@ class Classifier;
 class LinearClassifier;
 class RandomClassifier;
 class NearestNeighborClassifier;
+class OwnNearestNeighborClassifier;
 class LASSOClassifier;
 class ILAClassifier;
 class NaiveBayesClassifier;
@@ -15,5 +16,6 @@ public:
 	virtual void visit(LASSOClassifier*) = 0;
 	virtual void visit(RandomClassifier*) = 0;
 	virtual void visit(NearestNeighborClassifier*) = 0;
+	virtual void visit(OwnNearestNeighborClassifier*) = 0;
 	virtual void visit(NaiveBayesClassifier*) = 0;
 };

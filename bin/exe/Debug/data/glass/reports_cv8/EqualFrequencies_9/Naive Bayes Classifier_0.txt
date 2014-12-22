@@ -1,0 +1,140 @@
+Report ID: 0
+Naive Bayes Classifier
+Results for Naive Bayes Classification Algorithm
+General data
+Created on: 2014-11-23, 00:10:37
+Training time: 1 milliseconds
+Training iterations: 0
+Overall results
+Total training objects: 184
+Total test objects: 30
+Total correctly identified: 19
+Total incorrectly identified: 11
+Mean accurracy: 0.633333
+Mean recall: 0.759259
+Mean precision: 0.768031
+Mean F-measure: 0.711367
+RMS: N/A
+Spread: 1.0
+
+Data divided into classes
+Class 1
+Mapped to number: N/A
+Training objects: 61
+Test objects: 9
+Correctly identified: 7
+Incorrectly identified: 2
+Accurracy: 0.6333
+Recall: 0.7778
+Precision: 0.7778
+F-measure: 0.7778
+RMS: N/A
+Spread: 1
+2: 2
+1: 7
+
+Class 2
+Mapped to number: N/A
+Training objects: 66
+Test objects: 10
+Correctly identified: 10
+Incorrectly identified: 0
+Accurracy: 0.6333
+Recall: 1.0000
+Precision: 0.5263
+F-measure: 0.6897
+RMS: N/A
+Spread: 0
+2: 10
+
+Class 3
+Mapped to number: N/A
+Training objects: 14
+Test objects: 3
+Correctly identified: 0
+Incorrectly identified: 3
+Accurracy: N/A
+Recall: N/A
+Precision: N/A
+F-measure: N/A
+RMS: N/A
+Spread: 2
+1: 2
+2: 1
+
+Class 5
+Mapped to number: N/A
+Training objects: 11
+Test objects: 2
+Correctly identified: 0
+Incorrectly identified: 2
+Accurracy: N/A
+Recall: N/A
+Precision: N/A
+F-measure: N/A
+RMS: N/A
+Spread: 1
+2: 2
+
+Class 6
+Mapped to number: N/A
+Training objects: 7
+Test objects: 2
+Correctly identified: 0
+Incorrectly identified: 2
+Accurracy: N/A
+Recall: N/A
+Precision: N/A
+F-measure: N/A
+RMS: N/A
+Spread: 1
+2: 2
+
+Class 7
+Mapped to number: N/A
+Training objects: 25
+Test objects: 4
+Correctly identified: 2
+Incorrectly identified: 2
+Accurracy: 0.6333
+Recall: 0.5000
+Precision: 1.0000
+F-measure: 0.6667
+RMS: N/A
+Spread: 1
+2: 2
+7: 2
+
+Detailed classification data: 
+1.52101 13.64 4.49 1.1 71.78 0.06 8.75 0 0 of class 1 classified as 2
+1.51215 12.99 3.47 1.12 72.98 0.62 8.35 0 0.31 of class 1 classified as 2
+1.51918 14.04 3.58 1.37 72.08 0.56 8.3 0 0 of class 1 classified as 1
+1.51784 12.68 3.67 1.16 73.11 0.61 8.7 0 0 of class 1 classified as 1
+1.5172 13.38 3.5 1.15 72.85 0.5 8.43 0 0 of class 1 classified as 1
+1.51775 12.85 3.48 1.23 72.97 0.61 8.56 0.09 0.22 of class 1 classified as 1
+1.51793 12.79 3.5 1.12 73.03 0.64 8.77 0 0 of class 1 classified as 1
+1.52223 13.21 3.77 0.79 71.99 0.13 10.02 0 0 of class 1 classified as 1
+1.52172 13.48 3.74 0.9 72.01 0.18 9.61 0 0.07 of class 1 classified as 1
+1.51574 14.86 3.67 1.74 71.87 0.16 7.36 0 0.12 of class 2 classified as 2
+1.51613 13.92 3.52 1.25 72.88 0.37 7.94 0 0.14 of class 2 classified as 2
+1.51569 13.24 3.49 1.47 73.25 0.38 8.03 0 0 of class 2 classified as 2
+1.51629 12.71 3.33 1.49 73.28 0.67 8.24 0 0 of class 2 classified as 2
+1.5182 12.62 2.76 0.83 73.81 0.35 9.42 0 0.2 of class 2 classified as 2
+1.52664 11.23 0 0.77 73.21 0 14.68 0 0 of class 2 classified as 2
+1.51673 13.3 3.64 1.53 72.53 0.65 8.03 0 0.29 of class 2 classified as 2
+1.51667 12.94 3.61 1.26 72.75 0.56 8.6 0 0 of class 2 classified as 2
+1.51811 13.33 3.85 1.25 72.78 0.52 8.12 0 0 of class 2 classified as 2
+1.51662 12.85 3.51 1.44 73.01 0.68 8.23 0.06 0.25 of class 2 classified as 2
+1.51769 13.65 3.66 1.11 72.77 0.11 8.6 0 0 of class 3 classified as 1
+1.52211 14.19 3.78 0.91 71.36 0.23 9.14 0 0.37 of class 3 classified as 1
+1.51694 12.86 3.58 1.31 72.61 0.61 8.79 0 0 of class 3 classified as 2
+1.51514 14.01 2.68 3.5 69.89 1.68 5.87 2.2 0 of class 5 classified as 2
+1.51316 13.02 0 3.04 70.48 6.21 6.96 0 0 of class 5 classified as 2
+1.51905 14 2.39 1.56 72.37 0 9.57 0 0 of class 6 classified as 2
+1.51115 17.38 0 0.34 75.41 0 6.65 0 0 of class 6 classified as 2
+1.51131 13.69 3.2 1.81 72.81 1.76 5.43 1.19 0 of class 7 classified as 2
+1.51653 11.95 0 1.19 75.18 2.7 8.93 0 0 of class 7 classified as 2
+1.51719 14.75 0 2 73.02 0 8.53 1.59 0.08 of class 7 classified as 7
+1.51623 14.14 0 2.88 72.61 0.08 9.18 1.06 0 of class 7 classified as 7
+
+End of results for Naive Bayes

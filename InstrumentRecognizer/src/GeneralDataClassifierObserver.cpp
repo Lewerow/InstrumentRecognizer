@@ -70,3 +70,9 @@ void GeneralDataClassifierObserver::visit(NearestNeighborClassifier* c)
 	header = "Results. Unfortunately, currently there is no option to check strategy. sorry for that";
 	footer = "The end. Hope you enjoyed it";
 }
+void GeneralDataClassifierObserver::visit(OwnNearestNeighborClassifier* c)
+{
+	title = "Own Nearest Neighbor Classifier";
+	header = "Results. Unfortunately, currently there is no option to check strategy. sorry for that";
+	footer = "The end. Hope you enjoyed it";
+}
