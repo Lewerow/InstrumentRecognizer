@@ -91,46 +91,70 @@ draw_vote_series <- function(tab, metric){
 	dev.off()
 } 
 
-setwd("summaries/glass")
-glass=read.csv("tab.txt", TRUE, "\t")
+draw_xxx_vs_k <- function(tab, k, what, type) {
+	bagging_ila = tab[tab[1] == "Bagging" & tab[3] == "ILA",]
+	bagging_bayes = tab[tab[1] == "Bagging" & tab[3] == "NaiveBayes",]
+	bagging_knn = tab[tab[1] == "Bagging" & tab[3] == "KNN",]
+	boosting_ila = tab[tab[1] == "Boosting" & tab[3] == "ILA",]
+	boosting_bayes = tab[tab[1] == "Boosting" & tab[3] == "NaiveBayes",]
+	boosting_knn = tab[tab[1] == "Boosting" & tab[3] == "KNN",]
+    
+	miny = min(tab[,k])*0.8
+	maxy = max(tab[,k])*1.1
 
-for(metric in c("Euclid", "Manhattan", "Minkowski3"))
-{
-    for(vote in c("Majority", "Weighted", "DualWeighted"))
-	{
-        draw_cv_series(glass, metric, vote)
-	}
+	minx = min(tab[,2])*0.8
+	maxx = max(tab[,2])*1.1
+
+	#FScore
+	jpeg(paste(type, paste(what, "_vs_k.jpg")))
+	plot(1, 0, xlim=c(minx, maxx), ylim=c(miny, maxy), xlab="Liczba klasyfikatorow", ylab=what)
+	title(main=paste(what, " w zaleznosci od liczby klasyfikatorow w zespole"))
+
+	points(bagging_ila[,2], bagging_ila[,k], col="blue", pch=19)
+	points(bagging_bayes[,2], bagging_bayes[,k], col="red", pch=20)
+	points(bagging_knn[,2], bagging_knn[,k], col="black", pch=21)
+	points(boosting_ila[,2], boosting_ila[,k], col="green", pch=22)
+	points(boosting_bayes[,2], boosting_bayes[,k], col="orange", pch=23)
+	points(boosting_knn[,2], boosting_knn[,k], col="purple", pch=24)
+
+	legend("bottomright", legend=c("Bagging ILA", "Bagging Bayes", "Bagging KNN", "Boosting ILA", "Boosting Bayes", "Boosting KNN"), 
+		pch=c(19,20,21,22, 23, 24), col=c("blue", "red", "black", "green", "orange", "purple"))
+	dev.off()
 }
+
+draw_fmeasure_vs_k <- function(tab, type) {
+    draw_xxx_vs_k(tab, 7, "F-Score", type)
+}
+
+draw_recall_vs_k <- function(tab, type) {
+    draw_xxx_vs_k(tab, 5, "Recall", type)
+}
+
+draw_accurracy_vs_k <- function(tab, type) {
+    draw_xxx_vs_k(tab, 4, "Accurracy", type)
+}
+
+draw_precision_vs_k <- function(tab, type) {
+    draw_xxx_vs_k(tab, 6, "Precision", type)
+}
+
+setwd("summaries/glass")
+glass=read.csv("tab.txt", TRUE, ",")
+draw_fmeasure_vs_k(glass, "glass")
+draw_precision_vs_k(glass, "glass")
+draw_recall_vs_k(glass, "glass")
+draw_accurracy_vs_k(glass, "glass")
 
 setwd("../iris")
-iris=read.csv("tab.txt", TRUE, "\t")
-
-for(vote in c("Majority", "Weighted", "DualWeighted"))
-{
-    draw_metric_series(iris, vote)
-}
+iris=read.csv("tab.txt", TRUE, ",")
+draw_fmeasure_vs_k(iris, "iris")
+draw_precision_vs_k(iris, "iris")
+draw_recall_vs_k(iris, "iris")
+draw_accurracy_vs_k(iris, "iris")
 
 setwd("../wine")
-wine=read.csv("tab.txt", TRUE, "\t")
-
-for(metric in c("Euclid", "Manhattan", "Minkowski3"))
-{
-    draw_vote_series(wine, metric)
-}
-
-setwd("../diabetes")
-diabetes=read.csv("tab.txt", TRUE, "\t")
-
-for(vote in c("Majority", "Weighted", "DualWeighted"))
-{
-    draw_metric_series(diabetes, vote)
-}
-
-setwd("../seeds")
-diabetes=read.csv("tab.txt", TRUE, "\t")
-
-for(metric in c("Euclid", "Manhattan", "Minkowski3"))
-{
-    draw_vote_series(diabetes, metric)
-}
-
+wine=read.csv("tab.txt", TRUE, ",")
+draw_fmeasure_vs_k(wine, "wine")
+draw_precision_vs_k(wine, "wine")
+draw_recall_vs_k(wine, "wine")
+draw_accurracy_vs_k(wine, "wine")

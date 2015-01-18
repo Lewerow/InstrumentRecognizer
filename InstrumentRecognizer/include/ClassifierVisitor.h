@@ -6,6 +6,8 @@ class OwnNearestNeighborClassifier;
 class LASSOClassifier;
 class ILAClassifier;
 class NaiveBayesClassifier;
+class BaggingEnsembleClassifier;
+class BoostingEnsembleClassifier;
 
 class ClassifierVisitor
 {
@@ -18,4 +20,6 @@ public:
 	virtual void visit(NearestNeighborClassifier*) = 0;
 	virtual void visit(OwnNearestNeighborClassifier*) = 0;
 	virtual void visit(NaiveBayesClassifier*) = 0;
+	virtual void visit(BaggingEnsembleClassifier*) = 0;
+	virtual void visit(BoostingEnsembleClassifier*) = 0;
 };

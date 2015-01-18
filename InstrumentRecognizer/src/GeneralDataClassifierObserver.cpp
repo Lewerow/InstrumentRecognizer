@@ -76,3 +76,17 @@ void GeneralDataClassifierObserver::visit(OwnNearestNeighborClassifier* c)
 	header = "Results. Unfortunately, currently there is no option to check strategy. sorry for that";
 	footer = "The end. Hope you enjoyed it";
 }
+
+void GeneralDataClassifierObserver::visit(BaggingEnsembleClassifier* c)
+{
+	title = "Bagging Ensemble Classifier";
+	header = "Results. Unfortunately, currently there is no option to check strategy. sorry for that";
+	footer = "The end. Hope you enjoyed it";
+}
+
+void GeneralDataClassifierObserver::visit(BoostingEnsembleClassifier* c)
+{
+	title = "Boosting Ensemble Classifier";
+	header = "Results. Unfortunately, currently there is no option to check strategy. sorry for that";
+	footer = "The end. Hope you enjoyed it";
+}

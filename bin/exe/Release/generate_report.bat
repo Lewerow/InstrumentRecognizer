@@ -4,7 +4,7 @@ grep -nre "Mean\|Training time" data | grep "Summary" > summaries/summaries.txt
 
 cd summaries
 
-for %%d in (iris, glass, wine, diabetes, seeds) do (
+for %%d in (iris, glass, wine) do (
     @echo on
 	echo Generating summary for %%d
 	@echo off

@@ -16,7 +16,9 @@ public:
 	virtual void visit(NearestNeighborClassifier*);
 	virtual void visit(OwnNearestNeighborClassifier*);
 	virtual void visit(LASSOClassifier*);
-
+	virtual void visit(BaggingEnsembleClassifier*);
+	virtual void visit(BoostingEnsembleClassifier*);
+	
 	std::string title;
 	std::string header;
 	std::string footer;
